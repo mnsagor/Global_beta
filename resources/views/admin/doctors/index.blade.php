@@ -1,71 +1,76 @@
 @extends('layouts.admin')
 @section('content')
-@can('doctor_create')
-    <div style="margin-bottom: 10px;" class="row">
+<div class="content">
+    @can('doctor_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.doctors.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.doctor.title_singular') }}
+                </a>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'Doctor', 'route' => 'admin.doctors.parseCsvImport'])
+            </div>
+        </div>
+    @endcan
+    <div class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.doctors.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.doctor.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'Doctor', 'route' => 'admin.doctors.parseCsvImport'])
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.doctor.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Doctor">
+                        <thead>
+                            <tr>
+                                <th width="10">
+
+                                </th>
+                                <th>
+                                    {{ trans('cruds.doctor.fields.id') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.doctor.fields.name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.doctor.fields.designation') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.doctor.fields.specilities') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.doctor.fields.department') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.doctor.fields.nid') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.doctor.fields.gender') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.doctor.fields.phone_number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.doctor.fields.email') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.doctor.fields.status') }}
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.doctor.title_singular') }} {{ trans('global.list') }}
-    </div>
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Doctor">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.doctor.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.doctor.fields.name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.doctor.fields.designation') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.doctor.fields.specilities') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.doctor.fields.department') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.doctor.fields.nid') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.doctor.fields.gender') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.doctor.fields.phone_number') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.doctor.fields.email') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.doctor.fields.status') }}
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                </tr>
-            </thead>
-        </table>
-    </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

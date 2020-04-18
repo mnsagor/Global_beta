@@ -7,11 +7,11 @@
     <div class="col-md-12">
         <form action="{{ route("admin.messenger.storeTopic") }}" method="POST">
             @csrf
-            <div class="card card-default">
-                <div class="card-body">
+            <div class="panel panel-default">
+                <div class="panel-body">
                     <div class="row">
 
-                        <div class="col-lg-12 form-group">
+                        <div class="col-xs-12 form-group">
                             <label for="recipient" class="control-label">
                                 {{ trans('global.recipient') }}
                             </label>
@@ -22,14 +22,14 @@
                             </select>
                         </div>
 
-                        <div class="col-lg-12 form-group">
+                        <div class="col-xs-12 form-group">
                             <label for="subject" class="control-label">
                                 {{ trans('global.subject') }}
                             </label>
                             <input type="text" name="subject" class="form-control" />
                         </div>
 
-                        <div class="col-lg-12 form-group">
+                        <div class="col-xs-12 form-group">
                             <label for="content" class="control-label">
                                 {{ trans('global.content') }}
                             </label>

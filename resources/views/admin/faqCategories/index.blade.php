@@ -1,43 +1,48 @@
 @extends('layouts.admin')
 @section('content')
-@can('faq_category_create')
-    <div style="margin-bottom: 10px;" class="row">
+<div class="content">
+    @can('faq_category_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.faq-categories.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.faqCategory.title_singular') }}
+                </a>
+            </div>
+        </div>
+    @endcan
+    <div class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.faq-categories.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.faqCategory.title_singular') }}
-            </a>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.faqCategory.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-FaqCategory">
+                        <thead>
+                            <tr>
+                                <th width="10">
+
+                                </th>
+                                <th>
+                                    {{ trans('cruds.faqCategory.fields.id') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.faqCategory.fields.category') }}
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.faqCategory.title_singular') }} {{ trans('global.list') }}
-    </div>
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-FaqCategory">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.faqCategory.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.faqCategory.fields.category') }}
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                </tr>
-            </thead>
-        </table>
-    </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

@@ -8,9 +8,9 @@
         </p>
     </div>
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-xs-3">
             <p>
-                <a href="{{ route('admin.messenger.createTopic') }}" class="btn btn-primary btn-block">
+                <a href="{{ route('admin.messenger.createTopic') }}" class="btn btn-primary btn-group-justified">
                     {{ trans('global.new_message') }}
                 </a>
             </p>
@@ -40,7 +40,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-9">
+        <div class="col-xs-9">
             @yield('messenger-content')
         </div>
     </div>

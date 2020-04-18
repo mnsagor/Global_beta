@@ -1,56 +1,61 @@
 @extends('layouts.admin')
 @section('content')
-@can('procedure_create')
-    <div style="margin-bottom: 10px;" class="row">
+<div class="content">
+    @can('procedure_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.procedures.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.procedure.title_singular') }}
+                </a>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'Procedure', 'route' => 'admin.procedures.parseCsvImport'])
+            </div>
+        </div>
+    @endcan
+    <div class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.procedures.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.procedure.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'Procedure', 'route' => 'admin.procedures.parseCsvImport'])
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.procedure.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Procedure">
+                        <thead>
+                            <tr>
+                                <th width="10">
+
+                                </th>
+                                <th>
+                                    {{ trans('cruds.procedure.fields.id') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.procedure.fields.title') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.procedure.fields.status') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.procedure.fields.modality') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.procedure.fields.procedure_type') }}
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.procedure.title_singular') }} {{ trans('global.list') }}
-    </div>
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Procedure">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.procedure.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.procedure.fields.title') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.procedure.fields.status') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.procedure.fields.modality') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.procedure.fields.procedure_type') }}
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                </tr>
-            </thead>
-        </table>
-    </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

@@ -1,83 +1,88 @@
 @extends('layouts.admin')
 @section('content')
-@can('transaction_type_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.transaction-types.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.transactionType.title_singular') }}
-            </a>
+<div class="content">
+    @can('transaction_type_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.transaction-types.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.transactionType.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.transactionType.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.transactionType.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-TransactionType">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-TransactionType">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transactionType.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transactionType.fields.name') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($transactionTypes as $key => $transactionType)
+                                    <tr data-entry-id="{{ $transactionType->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.transactionType.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transactionType.fields.name') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($transactionTypes as $key => $transactionType)
-                        <tr data-entry-id="{{ $transactionType->id }}">
-                            <td>
+                                        </td>
+                                        <td>
+                                            {{ $transactionType->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transactionType->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('transaction_type_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.transaction-types.show', $transactionType->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                            </td>
-                            <td>
-                                {{ $transactionType->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transactionType->name ?? '' }}
-                            </td>
-                            <td>
-                                @can('transaction_type_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.transaction-types.show', $transactionType->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                            @can('transaction_type_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.transaction-types.edit', $transactionType->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                @can('transaction_type_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transaction-types.edit', $transactionType->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                            @can('transaction_type_delete')
+                                                <form action="{{ route('admin.transaction-types.destroy', $transactionType->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                                @can('transaction_type_delete')
-                                    <form action="{{ route('admin.transaction-types.destroy', $transactionType->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                        </td>
 
-                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

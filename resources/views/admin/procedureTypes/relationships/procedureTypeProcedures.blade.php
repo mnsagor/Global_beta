@@ -1,4 +1,4 @@
-<div class="m-3">
+<div class="content">
     @can('procedure_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
@@ -8,88 +8,95 @@
             </div>
         </div>
     @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.procedure.title_singular') }} {{ trans('global.list') }}
-        </div>
+    <div class="row">
+        <div class="col-lg-12">
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-procedureTypeProcedures">
-                    <thead>
-                        <tr>
-                            <th width="10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.procedure.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.procedure.fields.id') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.procedure.fields.title') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.procedure.fields.status') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.procedure.fields.modality') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.procedure.fields.procedure_type') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($procedures as $key => $procedure)
-                            <tr data-entry-id="{{ $procedure->id }}">
-                                <td>
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-procedureTypeProcedures">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-                                </td>
-                                <td>
-                                    {{ $procedure->id ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $procedure->title ?? '' }}
-                                </td>
-                                <td>
-                                    {{ App\Procedure::STATUS_SELECT[$procedure->status] ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $procedure->modality->title ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $procedure->procedure_type->title ?? '' }}
-                                </td>
-                                <td>
-                                    @can('procedure_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.procedures.show', $procedure->id) }}">
-                                            {{ trans('global.view') }}
-                                        </a>
-                                    @endcan
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.procedure.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.procedure.fields.title') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.procedure.fields.status') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.procedure.fields.modality') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.procedure.fields.procedure_type') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($procedures as $key => $procedure)
+                                    <tr data-entry-id="{{ $procedure->id }}">
+                                        <td>
 
-                                    @can('procedure_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.procedures.edit', $procedure->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @endcan
+                                        </td>
+                                        <td>
+                                            {{ $procedure->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $procedure->title ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ App\Procedure::STATUS_SELECT[$procedure->status] ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $procedure->modality->title ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $procedure->procedure_type->title ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('procedure_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.procedures.show', $procedure->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                                    @can('procedure_delete')
-                                        <form action="{{ route('admin.procedures.destroy', $procedure->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @endcan
+                                            @can('procedure_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.procedures.edit', $procedure->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                </td>
+                                            @can('procedure_delete')
+                                                <form action="{{ route('admin.procedures.destroy', $procedure->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </div>
 </div>

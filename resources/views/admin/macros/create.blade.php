@@ -1,78 +1,83 @@
 @extends('layouts.admin')
 @section('content')
+<div class="content">
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.macro.title_singular') }}
-    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('global.create') }} {{ trans('cruds.macro.title_singular') }}
+                </div>
+                <div class="panel-body">
+                    <form method="POST" action="{{ route("admin.macros.store") }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
+                            <label class="required" for="title">{{ trans('cruds.macro.fields.title') }}</label>
+                            <input class="form-control" type="text" name="title" id="title" value="{{ old('title', '') }}" required>
+                            @if($errors->has('title'))
+                                <span class="help-block" role="alert">{{ $errors->first('title') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.macro.fields.title_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('modality') ? 'has-error' : '' }}">
+                            <label class="required" for="modality_id">{{ trans('cruds.macro.fields.modality') }}</label>
+                            <select class="form-control select2" name="modality_id" id="modality_id" required>
+                                @foreach($modalities as $id => $modality)
+                                    <option value="{{ $id }}" {{ old('modality_id') == $id ? 'selected' : '' }}>{{ $modality }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('modality'))
+                                <span class="help-block" role="alert">{{ $errors->first('modality') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.macro.fields.modality_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('procedure') ? 'has-error' : '' }}">
+                            <label class="required" for="procedure_id">{{ trans('cruds.macro.fields.procedure') }}</label>
+                            <select class="form-control select2" name="procedure_id" id="procedure_id" required>
+                                @foreach($procedures as $id => $procedure)
+                                    <option value="{{ $id }}" {{ old('procedure_id') == $id ? 'selected' : '' }}>{{ $procedure }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('procedure'))
+                                <span class="help-block" role="alert">{{ $errors->first('procedure') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.macro.fields.procedure_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+                            <label class="required">{{ trans('cruds.macro.fields.status') }}</label>
+                            <select class="form-control" name="status" id="status" required>
+                                <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                @foreach(App\Macro::STATUS_SELECT as $key => $label)
+                                    <option value="{{ $key }}" {{ old('status', '1') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('status'))
+                                <span class="help-block" role="alert">{{ $errors->first('status') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.macro.fields.status_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('details') ? 'has-error' : '' }}">
+                            <label for="details">{{ trans('cruds.macro.fields.details') }}</label>
+                            <textarea class="form-control ckeditor" name="details" id="details">{!! old('details') !!}</textarea>
+                            @if($errors->has('details'))
+                                <span class="help-block" role="alert">{{ $errors->first('details') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.macro.fields.details_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-danger" type="submit">
+                                {{ trans('global.save') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-    <div class="card-body">
-        <form method="POST" action="{{ route("admin.macros.store") }}" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label class="required" for="title">{{ trans('cruds.macro.fields.title') }}</label>
-                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', '') }}" required>
-                @if($errors->has('title'))
-                    <span class="text-danger">{{ $errors->first('title') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.macro.fields.title_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="modality_id">{{ trans('cruds.macro.fields.modality') }}</label>
-                <select class="form-control select2 {{ $errors->has('modality') ? 'is-invalid' : '' }}" name="modality_id" id="modality_id" required>
-                    @foreach($modalities as $id => $modality)
-                        <option value="{{ $id }}" {{ old('modality_id') == $id ? 'selected' : '' }}>{{ $modality }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('modality'))
-                    <span class="text-danger">{{ $errors->first('modality') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.macro.fields.modality_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="procedure_id">{{ trans('cruds.macro.fields.procedure') }}</label>
-                <select class="form-control select2 {{ $errors->has('procedure') ? 'is-invalid' : '' }}" name="procedure_id" id="procedure_id" required>
-                    @foreach($procedures as $id => $procedure)
-                        <option value="{{ $id }}" {{ old('procedure_id') == $id ? 'selected' : '' }}>{{ $procedure }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('procedure'))
-                    <span class="text-danger">{{ $errors->first('procedure') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.macro.fields.procedure_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required">{{ trans('cruds.macro.fields.status') }}</label>
-                <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status" required>
-                    <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Macro::STATUS_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('status', '1') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.macro.fields.status_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="details">{{ trans('cruds.macro.fields.details') }}</label>
-                <textarea class="form-control ckeditor {{ $errors->has('details') ? 'is-invalid' : '' }}" name="details" id="details">{!! old('details') !!}</textarea>
-                @if($errors->has('details'))
-                    <span class="text-danger">{{ $errors->first('details') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.macro.fields.details_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-danger" type="submit">
-                    {{ trans('global.save') }}
-                </button>
-            </div>
-        </form>
+
+
+        </div>
     </div>
 </div>
-
-
-
 @endsection
 
 @section('scripts')

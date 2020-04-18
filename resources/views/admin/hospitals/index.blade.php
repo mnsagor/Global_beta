@@ -1,92 +1,97 @@
 @extends('layouts.admin')
 @section('content')
-@can('hospital_create')
-    <div style="margin-bottom: 10px;" class="row">
+<div class="content">
+    @can('hospital_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.hospitals.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.hospital.title_singular') }}
+                </a>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'Hospital', 'route' => 'admin.hospitals.parseCsvImport'])
+            </div>
+        </div>
+    @endcan
+    <div class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.hospitals.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.hospital.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'Hospital', 'route' => 'admin.hospitals.parseCsvImport'])
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.hospital.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Hospital">
+                        <thead>
+                            <tr>
+                                <th width="10">
+
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.id') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.title') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.hospital_code') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.manager_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.manager_phone_number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.techonologist_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.technologist_phone_number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.receptionist_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.receptionist_phone_number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.route_title') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.route_ae_title') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.route_host_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.route_port') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.pacs_destinaiton_ae_title') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.pacs_ae_title') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.pacs_host_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.pacs_port') }}
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.hospital.title_singular') }} {{ trans('global.list') }}
-    </div>
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Hospital">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.title') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.hospital_code') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.manager_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.manager_phone_number') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.techonologist_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.technologist_phone_number') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.receptionist_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.receptionist_phone_number') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.route_title') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.route_ae_title') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.route_host_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.route_port') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.pacs_destinaiton_ae_title') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.pacs_ae_title') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.pacs_host_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.hospital.fields.pacs_port') }}
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                </tr>
-            </thead>
-        </table>
-    </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

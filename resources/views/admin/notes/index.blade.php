@@ -1,89 +1,94 @@
 @extends('layouts.admin')
 @section('content')
-@can('note_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.notes.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.note.title_singular') }}
-            </a>
+<div class="content">
+    @can('note_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.notes.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.note.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.note.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.note.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-Note">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Note">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.note.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.note.fields.project') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.note.fields.note_text') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($notes as $key => $note)
+                                    <tr data-entry-id="{{ $note->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.note.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.note.fields.project') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.note.fields.note_text') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($notes as $key => $note)
-                        <tr data-entry-id="{{ $note->id }}">
-                            <td>
+                                        </td>
+                                        <td>
+                                            {{ $note->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $note->project->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $note->note_text ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('note_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.notes.show', $note->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                            </td>
-                            <td>
-                                {{ $note->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $note->project->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $note->note_text ?? '' }}
-                            </td>
-                            <td>
-                                @can('note_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.notes.show', $note->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                            @can('note_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.notes.edit', $note->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                @can('note_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.notes.edit', $note->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                            @can('note_delete')
+                                                <form action="{{ route('admin.notes.destroy', $note->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                                @can('note_delete')
-                                    <form action="{{ route('admin.notes.destroy', $note->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                        </td>
 
-                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

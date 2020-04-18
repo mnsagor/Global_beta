@@ -1,20 +1,25 @@
 @extends('layouts.admin')
 @section('content')
-<h3 class="page-title">{{ trans('global.systemCalendar') }}</h3>
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.systemCalendar') }}
-    </div>
+<div class="content">
+    <h3 class="page-title">{{ trans('global.systemCalendar') }}</h3>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('global.systemCalendar') }}
+                </div>
+                <div class="panel-body">
+                    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
 
-    <div class="card-body">
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
+                    <div id='calendar'></div>
+                </div>
+            </div>
 
-        <div id='calendar'></div>
+
+
+        </div>
     </div>
 </div>
-
-
-
 @endsection
 
 @section('scripts')

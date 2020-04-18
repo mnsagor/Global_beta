@@ -1,24 +1,29 @@
 @extends('layouts.admin')
 @section('content')
+<div class="content">
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.edit') }} {{ trans('cruds.assetsHistory.title_singular') }}
-    </div>
-
-    <div class="card-body">
-        <form method="POST" action="{{ route("admin.assets-histories.update", [$assetsHistory->id]) }}" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <div class="form-group">
-                <button class="btn btn-danger" type="submit">
-                    {{ trans('global.save') }}
-                </button>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('global.edit') }} {{ trans('cruds.assetsHistory.title_singular') }}
+                </div>
+                <div class="panel-body">
+                    <form method="POST" action="{{ route("admin.assets-histories.update", [$assetsHistory->id]) }}" enctype="multipart/form-data">
+                        @method('PUT')
+                        @csrf
+                        <div class="form-group">
+                            <button class="btn btn-danger" type="submit">
+                                {{ trans('global.save') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
+
+
+
+        </div>
     </div>
 </div>
-
-
-
 @endsection
