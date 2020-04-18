@@ -4,11 +4,11 @@
 
 @section('messenger-content')
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12">
         <div class="list-group">
             @forelse($topics as $topic)
-                <div class="row list-group-item d-flex">
-                    <div class="col-lg-4">
+                <div class="row list-group-item">
+                    <div class="col-xs-4 col-md-4">
                         <a href="{{ route('admin.messenger.showMessages', [$topic->id]) }}">
                             @php($receiverOrCreator = $topic->receiverOrCreator())
                                 @if($topic->hasUnreads())
@@ -20,7 +20,7 @@
                                 @endif
                         </a>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-xs-5 col-md-5">
                         <a href="{{ route('admin.messenger.showMessages', [$topic->id]) }}">
                             @if($topic->hasUnreads())
                                 <strong>
@@ -31,8 +31,8 @@
                             @endif
                         </a>
                     </div>
-                    <div class="col-lg-2 text-right">{{ $topic->created_at->diffForHumans() }}</div>
-                    <div class="col-lg-1 text-center">
+                    <div class="col-xs-2 text-right">{{ $topic->created_at->diffForHumans() }}</div>
+                    <div class="col-xs-1 text-center">
                         <form action="{{ route('admin.messenger.destroyTopic', [$topic->id]) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');">
                             <input type="hidden" name="_method" value="DELETE">
                             @csrf

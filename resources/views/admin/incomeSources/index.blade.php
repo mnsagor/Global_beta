@@ -1,89 +1,94 @@
 @extends('layouts.admin')
 @section('content')
-@can('income_source_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.income-sources.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.incomeSource.title_singular') }}
-            </a>
+<div class="content">
+    @can('income_source_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.income-sources.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.incomeSource.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.incomeSource.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.incomeSource.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-IncomeSource">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-IncomeSource">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.incomeSource.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.incomeSource.fields.name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.incomeSource.fields.fee_percent') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($incomeSources as $key => $incomeSource)
+                                    <tr data-entry-id="{{ $incomeSource->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.incomeSource.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.incomeSource.fields.name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.incomeSource.fields.fee_percent') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($incomeSources as $key => $incomeSource)
-                        <tr data-entry-id="{{ $incomeSource->id }}">
-                            <td>
+                                        </td>
+                                        <td>
+                                            {{ $incomeSource->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $incomeSource->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $incomeSource->fee_percent ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('income_source_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.income-sources.show', $incomeSource->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                            </td>
-                            <td>
-                                {{ $incomeSource->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $incomeSource->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $incomeSource->fee_percent ?? '' }}
-                            </td>
-                            <td>
-                                @can('income_source_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.income-sources.show', $incomeSource->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                            @can('income_source_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.income-sources.edit', $incomeSource->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                @can('income_source_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.income-sources.edit', $incomeSource->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                            @can('income_source_delete')
+                                                <form action="{{ route('admin.income-sources.destroy', $incomeSource->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                                @can('income_source_delete')
-                                    <form action="{{ route('admin.income-sources.destroy', $incomeSource->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                        </td>
 
-                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

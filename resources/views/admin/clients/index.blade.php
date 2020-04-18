@@ -1,131 +1,136 @@
 @extends('layouts.admin')
 @section('content')
-@can('client_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.clients.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.client.title_singular') }}
-            </a>
+<div class="content">
+    @can('client_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.clients.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.client.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.client.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.client.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-Client">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Client">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.first_name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.last_name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.company') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.email') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.phone') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.website') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.skype') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.country') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.status') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($clients as $key => $client)
+                                    <tr data-entry-id="{{ $client->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.first_name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.last_name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.company') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.email') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.phone') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.website') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.skype') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.country') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.status') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($clients as $key => $client)
-                        <tr data-entry-id="{{ $client->id }}">
-                            <td>
+                                        </td>
+                                        <td>
+                                            {{ $client->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $client->first_name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $client->last_name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $client->company ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $client->email ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $client->phone ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $client->website ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $client->skype ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $client->country ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $client->status->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('client_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.clients.show', $client->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                            </td>
-                            <td>
-                                {{ $client->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $client->first_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $client->last_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $client->company ?? '' }}
-                            </td>
-                            <td>
-                                {{ $client->email ?? '' }}
-                            </td>
-                            <td>
-                                {{ $client->phone ?? '' }}
-                            </td>
-                            <td>
-                                {{ $client->website ?? '' }}
-                            </td>
-                            <td>
-                                {{ $client->skype ?? '' }}
-                            </td>
-                            <td>
-                                {{ $client->country ?? '' }}
-                            </td>
-                            <td>
-                                {{ $client->status->name ?? '' }}
-                            </td>
-                            <td>
-                                @can('client_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.clients.show', $client->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                            @can('client_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.clients.edit', $client->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                @can('client_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.clients.edit', $client->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                            @can('client_delete')
+                                                <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                                @can('client_delete')
-                                    <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                        </td>
 
-                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

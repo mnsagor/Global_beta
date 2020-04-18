@@ -1,68 +1,73 @@
 @extends('layouts.admin')
 @section('content')
-@can('company_create')
-    <div style="margin-bottom: 10px;" class="row">
+<div class="content">
+    @can('company_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.companies.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.company.title_singular') }}
+                </a>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'Company', 'route' => 'admin.companies.parseCsvImport'])
+            </div>
+        </div>
+    @endcan
+    <div class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.companies.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.company.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'Company', 'route' => 'admin.companies.parseCsvImport'])
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.company.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Company">
+                        <thead>
+                            <tr>
+                                <th width="10">
+
+                                </th>
+                                <th>
+                                    {{ trans('cruds.company.fields.id') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.company.fields.title') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.company.fields.user') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.company.fields.email') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.company.fields.phone_number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.company.fields.web_address') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.company.fields.fb_address') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.company.fields.logo') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.company.fields.icon') }}
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.company.title_singular') }} {{ trans('global.list') }}
-    </div>
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Company">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.company.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.company.fields.title') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.company.fields.user') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.company.fields.email') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.company.fields.phone_number') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.company.fields.web_address') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.company.fields.fb_address') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.company.fields.logo') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.company.fields.icon') }}
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                </tr>
-            </thead>
-        </table>
-    </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

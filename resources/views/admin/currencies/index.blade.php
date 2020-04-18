@@ -1,96 +1,101 @@
 @extends('layouts.admin')
 @section('content')
-@can('currency_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.currencies.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.currency.title_singular') }}
-            </a>
+<div class="content">
+    @can('currency_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.currencies.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.currency.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.currency.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.currency.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-Currency">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Currency">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.currency.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.currency.fields.name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.currency.fields.code') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.currency.fields.main_currency') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($currencies as $key => $currency)
+                                    <tr data-entry-id="{{ $currency->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.currency.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.currency.fields.name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.currency.fields.code') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.currency.fields.main_currency') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($currencies as $key => $currency)
-                        <tr data-entry-id="{{ $currency->id }}">
-                            <td>
+                                        </td>
+                                        <td>
+                                            {{ $currency->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $currency->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $currency->code ?? '' }}
+                                        </td>
+                                        <td>
+                                            <span style="display:none">{{ $currency->main_currency ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $currency->main_currency ? 'checked' : '' }}>
+                                        </td>
+                                        <td>
+                                            @can('currency_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.currencies.show', $currency->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                            </td>
-                            <td>
-                                {{ $currency->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $currency->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $currency->code ?? '' }}
-                            </td>
-                            <td>
-                                <span style="display:none">{{ $currency->main_currency ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $currency->main_currency ? 'checked' : '' }}>
-                            </td>
-                            <td>
-                                @can('currency_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.currencies.show', $currency->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                            @can('currency_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.currencies.edit', $currency->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                @can('currency_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.currencies.edit', $currency->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                            @can('currency_delete')
+                                                <form action="{{ route('admin.currencies.destroy', $currency->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                                @can('currency_delete')
-                                    <form action="{{ route('admin.currencies.destroy', $currency->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                        </td>
 
-                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

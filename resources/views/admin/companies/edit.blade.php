@@ -1,112 +1,117 @@
 @extends('layouts.admin')
 @section('content')
+<div class="content">
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.edit') }} {{ trans('cruds.company.title_singular') }}
-    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('global.edit') }} {{ trans('cruds.company.title_singular') }}
+                </div>
+                <div class="panel-body">
+                    <form method="POST" action="{{ route("admin.companies.update", [$company->id]) }}" enctype="multipart/form-data">
+                        @method('PUT')
+                        @csrf
+                        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
+                            <label class="required" for="title">{{ trans('cruds.company.fields.title') }}</label>
+                            <input class="form-control" type="text" name="title" id="title" value="{{ old('title', $company->title) }}" required>
+                            @if($errors->has('title'))
+                                <span class="help-block" role="alert">{{ $errors->first('title') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.company.fields.title_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('user') ? 'has-error' : '' }}">
+                            <label class="required" for="user_id">{{ trans('cruds.company.fields.user') }}</label>
+                            <select class="form-control select2" name="user_id" id="user_id" required>
+                                @foreach($users as $id => $user)
+                                    <option value="{{ $id }}" {{ ($company->user ? $company->user->id : old('user_id')) == $id ? 'selected' : '' }}>{{ $user }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('user'))
+                                <span class="help-block" role="alert">{{ $errors->first('user') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.company.fields.user_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
+                            <label for="email">{{ trans('cruds.company.fields.email') }}</label>
+                            <input class="form-control" type="email" name="email" id="email" value="{{ old('email', $company->email) }}">
+                            @if($errors->has('email'))
+                                <span class="help-block" role="alert">{{ $errors->first('email') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.company.fields.email_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
+                            <label for="address">{{ trans('cruds.company.fields.address') }}</label>
+                            <textarea class="form-control ckeditor" name="address" id="address">{!! old('address', $company->address) !!}</textarea>
+                            @if($errors->has('address'))
+                                <span class="help-block" role="alert">{{ $errors->first('address') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.company.fields.address_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : '' }}">
+                            <label for="phone_number">{{ trans('cruds.company.fields.phone_number') }}</label>
+                            <input class="form-control" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', $company->phone_number) }}">
+                            @if($errors->has('phone_number'))
+                                <span class="help-block" role="alert">{{ $errors->first('phone_number') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.company.fields.phone_number_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('web_address') ? 'has-error' : '' }}">
+                            <label for="web_address">{{ trans('cruds.company.fields.web_address') }}</label>
+                            <input class="form-control" type="text" name="web_address" id="web_address" value="{{ old('web_address', $company->web_address) }}">
+                            @if($errors->has('web_address'))
+                                <span class="help-block" role="alert">{{ $errors->first('web_address') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.company.fields.web_address_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('fb_address') ? 'has-error' : '' }}">
+                            <label for="fb_address">{{ trans('cruds.company.fields.fb_address') }}</label>
+                            <input class="form-control" type="text" name="fb_address" id="fb_address" value="{{ old('fb_address', $company->fb_address) }}">
+                            @if($errors->has('fb_address'))
+                                <span class="help-block" role="alert">{{ $errors->first('fb_address') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.company.fields.fb_address_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('logo') ? 'has-error' : '' }}">
+                            <label for="logo">{{ trans('cruds.company.fields.logo') }}</label>
+                            <div class="needsclick dropzone" id="logo-dropzone">
+                            </div>
+                            @if($errors->has('logo'))
+                                <span class="help-block" role="alert">{{ $errors->first('logo') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.company.fields.logo_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('icon') ? 'has-error' : '' }}">
+                            <label for="icon">{{ trans('cruds.company.fields.icon') }}</label>
+                            <div class="needsclick dropzone" id="icon-dropzone">
+                            </div>
+                            @if($errors->has('icon'))
+                                <span class="help-block" role="alert">{{ $errors->first('icon') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.company.fields.icon_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('notice') ? 'has-error' : '' }}">
+                            <label for="notice">{{ trans('cruds.company.fields.notice') }}</label>
+                            <textarea class="form-control ckeditor" name="notice" id="notice">{!! old('notice', $company->notice) !!}</textarea>
+                            @if($errors->has('notice'))
+                                <span class="help-block" role="alert">{{ $errors->first('notice') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.company.fields.notice_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-danger" type="submit">
+                                {{ trans('global.save') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-    <div class="card-body">
-        <form method="POST" action="{{ route("admin.companies.update", [$company->id]) }}" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <div class="form-group">
-                <label class="required" for="title">{{ trans('cruds.company.fields.title') }}</label>
-                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', $company->title) }}" required>
-                @if($errors->has('title'))
-                    <span class="text-danger">{{ $errors->first('title') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.company.fields.title_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="user_id">{{ trans('cruds.company.fields.user') }}</label>
-                <select class="form-control select2 {{ $errors->has('user') ? 'is-invalid' : '' }}" name="user_id" id="user_id" required>
-                    @foreach($users as $id => $user)
-                        <option value="{{ $id }}" {{ ($company->user ? $company->user->id : old('user_id')) == $id ? 'selected' : '' }}>{{ $user }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('user'))
-                    <span class="text-danger">{{ $errors->first('user') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.company.fields.user_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="email">{{ trans('cruds.company.fields.email') }}</label>
-                <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email', $company->email) }}">
-                @if($errors->has('email'))
-                    <span class="text-danger">{{ $errors->first('email') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.company.fields.email_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="address">{{ trans('cruds.company.fields.address') }}</label>
-                <textarea class="form-control ckeditor {{ $errors->has('address') ? 'is-invalid' : '' }}" name="address" id="address">{!! old('address', $company->address) !!}</textarea>
-                @if($errors->has('address'))
-                    <span class="text-danger">{{ $errors->first('address') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.company.fields.address_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="phone_number">{{ trans('cruds.company.fields.phone_number') }}</label>
-                <input class="form-control {{ $errors->has('phone_number') ? 'is-invalid' : '' }}" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', $company->phone_number) }}">
-                @if($errors->has('phone_number'))
-                    <span class="text-danger">{{ $errors->first('phone_number') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.company.fields.phone_number_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="web_address">{{ trans('cruds.company.fields.web_address') }}</label>
-                <input class="form-control {{ $errors->has('web_address') ? 'is-invalid' : '' }}" type="text" name="web_address" id="web_address" value="{{ old('web_address', $company->web_address) }}">
-                @if($errors->has('web_address'))
-                    <span class="text-danger">{{ $errors->first('web_address') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.company.fields.web_address_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="fb_address">{{ trans('cruds.company.fields.fb_address') }}</label>
-                <input class="form-control {{ $errors->has('fb_address') ? 'is-invalid' : '' }}" type="text" name="fb_address" id="fb_address" value="{{ old('fb_address', $company->fb_address) }}">
-                @if($errors->has('fb_address'))
-                    <span class="text-danger">{{ $errors->first('fb_address') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.company.fields.fb_address_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="logo">{{ trans('cruds.company.fields.logo') }}</label>
-                <div class="needsclick dropzone {{ $errors->has('logo') ? 'is-invalid' : '' }}" id="logo-dropzone">
-                </div>
-                @if($errors->has('logo'))
-                    <span class="text-danger">{{ $errors->first('logo') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.company.fields.logo_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="icon">{{ trans('cruds.company.fields.icon') }}</label>
-                <div class="needsclick dropzone {{ $errors->has('icon') ? 'is-invalid' : '' }}" id="icon-dropzone">
-                </div>
-                @if($errors->has('icon'))
-                    <span class="text-danger">{{ $errors->first('icon') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.company.fields.icon_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="notice">{{ trans('cruds.company.fields.notice') }}</label>
-                <textarea class="form-control ckeditor {{ $errors->has('notice') ? 'is-invalid' : '' }}" name="notice" id="notice">{!! old('notice', $company->notice) !!}</textarea>
-                @if($errors->has('notice'))
-                    <span class="text-danger">{{ $errors->first('notice') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.company.fields.notice_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-danger" type="submit">
-                    {{ trans('global.save') }}
-                </button>
-            </div>
-        </form>
+
+
+        </div>
     </div>
 </div>
-
-
-
 @endsection
 
 @section('scripts')

@@ -1,77 +1,82 @@
 @extends('layouts.admin')
 @section('content')
-@can('work_order_create')
-    <div style="margin-bottom: 10px;" class="row">
+<div class="content">
+    @can('work_order_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.work-orders.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.workOrder.title_singular') }}
+                </a>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'WorkOrder', 'route' => 'admin.work-orders.parseCsvImport'])
+            </div>
+        </div>
+    @endcan
+    <div class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.work-orders.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.workOrder.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'WorkOrder', 'route' => 'admin.work-orders.parseCsvImport'])
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.workOrder.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-WorkOrder">
+                        <thead>
+                            <tr>
+                                <th width="10">
+
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.id') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.registration_number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.work_order_status') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.uploaded_by') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.data') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.hospital') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.doctor') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.patient') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.modality') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.procedure') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.radiologist') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.workOrder.fields.image') }}
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.workOrder.title_singular') }} {{ trans('global.list') }}
-    </div>
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-WorkOrder">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.registration_number') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.work_order_status') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.uploaded_by') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.data') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.hospital') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.doctor') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.patient') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.modality') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.procedure') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.radiologist') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.workOrder.fields.image') }}
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                </tr>
-            </thead>
-        </table>
-    </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

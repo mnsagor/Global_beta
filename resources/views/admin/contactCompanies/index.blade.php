@@ -1,101 +1,106 @@
 @extends('layouts.admin')
 @section('content')
-@can('contact_company_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.contact-companies.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.contactCompany.title_singular') }}
-            </a>
+<div class="content">
+    @can('contact_company_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.contact-companies.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.contactCompany.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.contactCompany.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.contactCompany.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-ContactCompany">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-ContactCompany">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactCompany.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactCompany.fields.company_name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactCompany.fields.company_address') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactCompany.fields.company_website') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactCompany.fields.company_email') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($contactCompanies as $key => $contactCompany)
+                                    <tr data-entry-id="{{ $contactCompany->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.contactCompany.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.contactCompany.fields.company_name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.contactCompany.fields.company_address') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.contactCompany.fields.company_website') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.contactCompany.fields.company_email') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($contactCompanies as $key => $contactCompany)
-                        <tr data-entry-id="{{ $contactCompany->id }}">
-                            <td>
+                                        </td>
+                                        <td>
+                                            {{ $contactCompany->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactCompany->company_name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactCompany->company_address ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactCompany->company_website ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactCompany->company_email ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('contact_company_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.contact-companies.show', $contactCompany->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                            </td>
-                            <td>
-                                {{ $contactCompany->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $contactCompany->company_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $contactCompany->company_address ?? '' }}
-                            </td>
-                            <td>
-                                {{ $contactCompany->company_website ?? '' }}
-                            </td>
-                            <td>
-                                {{ $contactCompany->company_email ?? '' }}
-                            </td>
-                            <td>
-                                @can('contact_company_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.contact-companies.show', $contactCompany->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                            @can('contact_company_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.contact-companies.edit', $contactCompany->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                @can('contact_company_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.contact-companies.edit', $contactCompany->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                            @can('contact_company_delete')
+                                                <form action="{{ route('admin.contact-companies.destroy', $contactCompany->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                                @can('contact_company_delete')
-                                    <form action="{{ route('admin.contact-companies.destroy', $contactCompany->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                        </td>
 
-                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

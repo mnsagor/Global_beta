@@ -1,83 +1,88 @@
 @extends('layouts.admin')
 @section('content')
-@can('income_category_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.income-categories.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.incomeCategory.title_singular') }}
-            </a>
+<div class="content">
+    @can('income_category_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.income-categories.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.incomeCategory.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.incomeCategory.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.incomeCategory.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-IncomeCategory">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-IncomeCategory">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.incomeCategory.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.incomeCategory.fields.name') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($incomeCategories as $key => $incomeCategory)
+                                    <tr data-entry-id="{{ $incomeCategory->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.incomeCategory.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.incomeCategory.fields.name') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($incomeCategories as $key => $incomeCategory)
-                        <tr data-entry-id="{{ $incomeCategory->id }}">
-                            <td>
+                                        </td>
+                                        <td>
+                                            {{ $incomeCategory->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $incomeCategory->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('income_category_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.income-categories.show', $incomeCategory->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                            </td>
-                            <td>
-                                {{ $incomeCategory->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $incomeCategory->name ?? '' }}
-                            </td>
-                            <td>
-                                @can('income_category_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.income-categories.show', $incomeCategory->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                            @can('income_category_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.income-categories.edit', $incomeCategory->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                @can('income_category_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.income-categories.edit', $incomeCategory->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                            @can('income_category_delete')
+                                                <form action="{{ route('admin.income-categories.destroy', $incomeCategory->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                                @can('income_category_delete')
-                                    <form action="{{ route('admin.income-categories.destroy', $incomeCategory->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                        </td>
 
-                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

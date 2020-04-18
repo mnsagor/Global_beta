@@ -1,125 +1,130 @@
 @extends('layouts.admin')
 @section('content')
-@can('transaction_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.transactions.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.transaction.title_singular') }}
-            </a>
+<div class="content">
+    @can('transaction_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.transactions.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.transaction.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.transaction.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.transaction.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-Transaction">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Transaction">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transaction.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transaction.fields.project') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transaction.fields.transaction_type') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transaction.fields.income_source') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transaction.fields.amount') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transaction.fields.currency') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transaction.fields.transaction_date') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transaction.fields.name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transaction.fields.description') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($transactions as $key => $transaction)
+                                    <tr data-entry-id="{{ $transaction->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.transaction.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transaction.fields.project') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transaction.fields.transaction_type') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transaction.fields.income_source') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transaction.fields.amount') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transaction.fields.currency') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transaction.fields.transaction_date') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transaction.fields.name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transaction.fields.description') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($transactions as $key => $transaction)
-                        <tr data-entry-id="{{ $transaction->id }}">
-                            <td>
+                                        </td>
+                                        <td>
+                                            {{ $transaction->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transaction->project->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transaction->transaction_type->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transaction->income_source->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transaction->amount ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transaction->currency->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transaction->transaction_date ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transaction->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transaction->description ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('transaction_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.transactions.show', $transaction->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                            </td>
-                            <td>
-                                {{ $transaction->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transaction->project->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transaction->transaction_type->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transaction->income_source->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transaction->amount ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transaction->currency->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transaction->transaction_date ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transaction->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transaction->description ?? '' }}
-                            </td>
-                            <td>
-                                @can('transaction_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.transactions.show', $transaction->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                            @can('transaction_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.transactions.edit', $transaction->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                @can('transaction_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transactions.edit', $transaction->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                            @can('transaction_delete')
+                                                <form action="{{ route('admin.transactions.destroy', $transaction->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                                @can('transaction_delete')
-                                    <form action="{{ route('admin.transactions.destroy', $transaction->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                        </td>
 
-                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent
