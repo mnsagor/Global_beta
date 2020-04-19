@@ -51,8 +51,8 @@ class ModalityController extends Controller
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : "";
             });
-            $table->editColumn('satus', function ($row) {
-                return $row->satus ? Modality::SATUS_RADIO[$row->satus] : '';
+            $table->editColumn('status', function ($row) {
+                return $row->status ? Modality::STATUS_SELECT[$row->status] : '';
             });
 
             $table->rawColumns(['actions', 'placeholder']);

@@ -19,13 +19,7 @@ class Modality extends Model implements HasMedia
 
     public static $searchable = [
         'title',
-        'satus',
         'details',
-    ];
-
-    const SATUS_RADIO = [
-        '1' => 'Active',
-        '0' => 'Inactive',
     ];
 
     protected $dates = [
@@ -34,9 +28,14 @@ class Modality extends Model implements HasMedia
         'deleted_at',
     ];
 
+    const STATUS_SELECT = [
+        '1' => 'Active',
+        '0' => 'Inactive',
+    ];
+
     protected $fillable = [
         'title',
-        'satus',
+        'status',
         'details',
         'created_at',
         'updated_at',

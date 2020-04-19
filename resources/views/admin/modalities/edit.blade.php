@@ -20,18 +20,18 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.modality.fields.title_helper') }}</span>
                         </div>
-                        <div class="form-group {{ $errors->has('satus') ? 'has-error' : '' }}">
-                            <label class="required">{{ trans('cruds.modality.fields.satus') }}</label>
-                            @foreach(App\Modality::SATUS_RADIO as $key => $label)
-                                <div>
-                                    <input type="radio" id="satus_{{ $key }}" name="satus" value="{{ $key }}" {{ old('satus', $modality->satus) === (string) $key ? 'checked' : '' }} required>
-                                    <label for="satus_{{ $key }}" style="font-weight: 400">{{ $label }}</label>
-                                </div>
-                            @endforeach
-                            @if($errors->has('satus'))
-                                <span class="help-block" role="alert">{{ $errors->first('satus') }}</span>
+                        <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+                            <label class="required">{{ trans('cruds.modality.fields.status') }}</label>
+                            <select class="form-control" name="status" id="status" required>
+                                <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                @foreach(App\Modality::STATUS_SELECT as $key => $label)
+                                    <option value="{{ $key }}" {{ old('status', $modality->status) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('status'))
+                                <span class="help-block" role="alert">{{ $errors->first('status') }}</span>
                             @endif
-                            <span class="help-block">{{ trans('cruds.modality.fields.satus_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.modality.fields.status_helper') }}</span>
                         </div>
                         <div class="form-group {{ $errors->has('details') ? 'has-error' : '' }}">
                             <label for="details">{{ trans('cruds.modality.fields.details') }}</label>

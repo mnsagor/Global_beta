@@ -20,10 +20,10 @@ class StoreModalityRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => [
+            'title'  => [
                 'required',
                 'unique:modalities'],
-            'satus' => [
+            'status' => [
                 'required'],
         ];
 
