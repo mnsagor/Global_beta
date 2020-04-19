@@ -12,6 +12,7 @@ use App\Macro;
 use App\Modality;
 use App\Procedure;
 use Gate;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
@@ -154,6 +155,22 @@ class MacrosController extends Controller
         $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media', 'public');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
+
+    }
+
+    public function fetchProcedures (Request $request){
+        $modality_title = $request->get('select');
+        $modality_id = $request->get('value');
+        $dependent = $request->get('dependent');
+
+        $procedures = Procedure::where($modality_title,$modality_id)->get();
+
+        $output = '<option value="">Select '."Procedure".'</option>';
+        foreach($procedures as $row)
+        {
+            $output .= '<option value="'.$row->id.'">'.$row->title.'</option>';
+        }
+        echo $output;
 
     }
 
