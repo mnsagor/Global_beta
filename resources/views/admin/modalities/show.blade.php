@@ -35,10 +35,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.modality.fields.satus') }}
+                                        {{ trans('cruds.modality.fields.status') }}
                                     </th>
                                     <td>
-                                        {{ App\Modality::SATUS_RADIO[$modality->satus] ?? '' }}
+                                        {{ App\Modality::STATUS_SELECT[$modality->status] ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>

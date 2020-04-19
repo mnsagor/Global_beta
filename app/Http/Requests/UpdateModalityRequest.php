@@ -20,10 +20,10 @@ class UpdateModalityRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => [
+            'title'  => [
                 'required',
                 'unique:modalities,title,' . request()->route('modality')->id],
-            'satus' => [
+            'status' => [
                 'required'],
         ];
 

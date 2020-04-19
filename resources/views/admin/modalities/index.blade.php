@@ -34,7 +34,7 @@
                                     {{ trans('cruds.modality.fields.title') }}
                                 </th>
                                 <th>
-                                    {{ trans('cruds.modality.fields.satus') }}
+                                    {{ trans('cruds.modality.fields.status') }}
                                 </th>
                                 <th>
                                     &nbsp;
@@ -97,7 +97,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'title', name: 'title' },
-{ data: 'satus', name: 'satus' },
+{ data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     order: [[ 1, 'desc' ]],

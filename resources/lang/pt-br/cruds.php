@@ -22,8 +22,8 @@ return [
         ],
     ],
     'role'                    => [
-        'title'          => 'Funções',
-        'title_singular' => 'Função',
+        'title'          => 'Regras',
+        'title_singular' => 'Regras',
         'fields'         => [
             'id'                 => 'ID',
             'id_helper'          => '',
@@ -221,8 +221,6 @@ return [
             'id_helper'         => '',
             'title'             => 'Name',
             'title_helper'      => '',
-            'satus'             => 'Satus',
-            'satus_helper'      => '',
             'details'           => 'Details',
             'details_helper'    => '',
             'created_at'        => 'Created at',
@@ -233,6 +231,8 @@ return [
             'deleted_at_helper' => '',
             'created_by'        => 'Created By',
             'created_by_helper' => '',
+            'status'            => 'Status',
+            'status_helper'     => '',
         ],
     ],
     'procedure'               => [
