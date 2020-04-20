@@ -78,9 +78,9 @@ class MacrosController extends Controller
     {
         abort_if(Gate::denies('macro_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $modalities = Modality::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $modalities = Modality::all()->where('status',1)->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $procedures = Procedure::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $procedures = Procedure::all()->where('status',1)->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.macros.create', compact('modalities', 'procedures'));
     }
@@ -101,9 +101,9 @@ class MacrosController extends Controller
     {
         abort_if(Gate::denies('macro_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $modalities = Modality::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $modalities = Modality::all()->where('status',1)->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $procedures = Procedure::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $procedures = Procedure::all()->where('status',1)->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $macro->load('modality', 'procedure', 'created_by');
 
@@ -163,7 +163,7 @@ class MacrosController extends Controller
         $modality_id = $request->get('value');
         $dependent = $request->get('dependent');
 
-        $procedures = Procedure::where($modality_title,$modality_id)->get();
+        $procedures = Procedure::where($modality_title,$modality_id)->where('status',1)->get();
 
         $output = '<option value="">Select '."Procedure".'</option>';
         foreach($procedures as $row)
