@@ -19,21 +19,18 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.radiologist.fields.name_helper') }}</span>
                         </div>
-                        <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }}">
-                            <label class="required" for="roles">{{ trans('cruds.radiologist.fields.roles') }}</label>
-                            <div style="padding-bottom: 4px">
-                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                            </div>
-                            <select class="form-control select2" name="roles[]" id="roles" multiple required>
-                                @foreach($roles as $id => $roles)
-                                    <option value="{{ $id }}" {{ in_array($id, old('roles', [])) ? 'selected' : '' }}>{{ $roles }}</option>
+                        <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+                            <label class="required">{{ trans('cruds.radiologist.fields.status') }}</label>
+                            <select class="form-control" name="status" id="status" required>
+                                <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                @foreach(App\Radiologist::STATUS_SELECT as $key => $label)
+                                    <option value="{{ $key }}" {{ old('status', '1') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                                 @endforeach
                             </select>
-                            @if($errors->has('roles'))
-                                <span class="help-block" role="alert">{{ $errors->first('roles') }}</span>
+                            @if($errors->has('status'))
+                                <span class="help-block" role="alert">{{ $errors->first('status') }}</span>
                             @endif
-                            <span class="help-block">{{ trans('cruds.radiologist.fields.roles_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.radiologist.fields.status_helper') }}</span>
                         </div>
                         <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : '' }}">
                             <label for="phone_number">{{ trans('cruds.radiologist.fields.phone_number') }}</label>

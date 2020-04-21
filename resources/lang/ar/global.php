@@ -51,7 +51,7 @@ return [
     'youAreLoggedIn'                       => 'تم تسجيل دخولك',
     'yourAccountNeedsAdminApproval'        => 'يحتاج حسابك إلى موافقة المسؤول من أجل تسجيل الدخول',
     'submit'                               => 'إرسال',
-    'relatedData'                          => 'Related Data',
+    'relatedData'                          => 'بيانات ذات صلة',
     'change_password_success'              => 'تم تغير كلمة المرور بنجاح',
     'datatables'                           => [
         'copy'          => 'نسخ',
@@ -64,12 +64,12 @@ return [
         'zero_selected' => 'لم يتم تحديد صفوف',
     ],
     'billing'                              => [
-        'menu'                        => 'Billing',
-        'current_plan'                => 'Your current plan',
-        'choose_this_plan'            => 'Choose this plan',
-        'month'                       => 'month',
-        'trial_user'                  => 'Trial User',
-        'plan_purchased_successfully' => 'Plan purchased successfully',
+        'menu'                        => 'الفوترة',
+        'current_plan'                => 'اشتراكك الحالي',
+        'choose_this_plan'            => 'اختر هذا الاشتراك',
+        'month'                       => 'شهر',
+        'trial_user'                  => 'مستخدم تجريبي',
+        'plan_purchased_successfully' => 'تم شراء هذا الاشتراك بنجاح',
     ],
     'payments'                             => [
         'title'        => 'الفواتير',

@@ -34,7 +34,7 @@
                                     {{ trans('cruds.hospital.fields.title') }}
                                 </th>
                                 <th>
-                                    {{ trans('cruds.hospital.fields.roles') }}
+                                    {{ trans('cruds.hospital.fields.status') }}
                                 </th>
                                 <th>
                                     {{ trans('cruds.hospital.fields.hospital_code') }}
@@ -142,7 +142,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'title', name: 'title' },
-{ data: 'roles', name: 'roles.title' },
+{ data: 'status', name: 'status' },
 { data: 'hospital_code', name: 'hospital_code' },
 { data: 'manager_name', name: 'manager_name' },
 { data: 'manager_phone_number', name: 'manager_phone_number' },

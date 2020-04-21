@@ -37,18 +37,6 @@ class Role extends Model
 
     }
 
-    public function rolesRadiologists()
-    {
-        return $this->belongsToMany(Radiologist::class);
-
-    }
-
-    public function rolesHospitals()
-    {
-        return $this->belongsToMany(Hospital::class);
-
-    }
-
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);
