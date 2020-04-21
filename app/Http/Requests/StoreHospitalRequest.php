@@ -20,9 +20,14 @@ class StoreHospitalRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => [
+            'title'   => [
                 'required',
                 'unique:hospitals'],
+            'roles.*' => [
+                'integer'],
+            'roles'   => [
+                'required',
+                'array'],
         ];
 
     }

@@ -391,6 +391,8 @@ return [
             'pacs_host_name_helper'            => '',
             'pacs_port'                        => 'Pacs Port',
             'pacs_port_helper'                 => '',
+            'roles'                            => 'Roles',
+            'roles_helper'                     => '',
         ],
     ],
     'radiologist'             => [
@@ -425,6 +427,8 @@ return [
             'macro_helper'           => '',
             'signature_image'        => 'Upload Signature',
             'signature_image_helper' => '',
+            'roles'                  => 'Roles',
+            'roles_helper'           => '',
         ],
     ],
     'imageUpload'             => [

@@ -35,6 +35,16 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.radiologist.fields.roles') }}
+                                    </th>
+                                    <td>
+                                        @foreach($radiologist->roles as $key => $roles)
+                                            <span class="label label-info">{{ $roles->title }}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.radiologist.fields.phone_number') }}
                                     </th>
                                     <td>

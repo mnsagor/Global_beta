@@ -34,6 +34,9 @@
                                     {{ trans('cruds.radiologist.fields.name') }}
                                 </th>
                                 <th>
+                                    {{ trans('cruds.radiologist.fields.roles') }}
+                                </th>
+                                <th>
                                     {{ trans('cruds.radiologist.fields.phone_number') }}
                                 </th>
                                 <th>
@@ -115,6 +118,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
+{ data: 'roles', name: 'roles.title' },
 { data: 'phone_number', name: 'phone_number' },
 { data: 'designation', name: 'designation' },
 { data: 'hospital', name: 'hospitals.title' },

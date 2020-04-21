@@ -25,41 +25,41 @@ class Hospital extends Model implements HasMedia
 
     public static $searchable = [
         'title',
-        'address',
-        'pacs_port',
-        'route_title',
-        'manager_name',
         'hospital_code',
-        'pacs_ae_title',
-        'route_ae_title',
-        'receptionist_name',
+        'address',
+        'manager_name',
         'manager_phone_number',
+        'receptionist_name',
         'receptionist_phone_number',
+        'route_title',
+        'route_ae_title',
         'pacs_destinaiton_ae_title',
+        'pacs_ae_title',
+        'pacs_port',
     ];
 
     protected $fillable = [
         'title',
-        'address',
-        'pacs_port',
         'created_at',
-        'deleted_at',
-        'updated_at',
-        'route_port',
-        'route_title',
-        'manager_name',
-        'pacs_ae_title',
         'hospital_code',
-        'created_by_id',
-        'route_ae_title',
-        'pacs_host_name',
-        'route_host_name',
-        'receptionist_name',
-        'techonologist_name',
+        'address',
+        'manager_name',
         'manager_phone_number',
-        'receptionist_phone_number',
+        'techonologist_name',
         'technologist_phone_number',
+        'receptionist_name',
+        'receptionist_phone_number',
+        'route_title',
+        'route_ae_title',
+        'route_host_name',
+        'route_port',
         'pacs_destinaiton_ae_title',
+        'pacs_ae_title',
+        'pacs_host_name',
+        'pacs_port',
+        'updated_at',
+        'deleted_at',
+        'created_by_id',
     ];
 
     protected function serializeDate(DateTimeInterface $date)
@@ -90,6 +90,12 @@ class Hospital extends Model implements HasMedia
     public function hospitalRadiologists()
     {
         return $this->belongsToMany(Radiologist::class);
+
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
 
     }
 

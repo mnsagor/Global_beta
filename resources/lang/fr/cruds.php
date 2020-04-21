@@ -391,6 +391,8 @@ return [
             'pacs_host_name_helper'            => '',
             'pacs_port'                        => 'Pacs Port',
             'pacs_port_helper'                 => '',
+            'roles'                            => 'Roles',
+            'roles_helper'                     => '',
         ],
     ],
     'radiologist'             => [
@@ -425,6 +427,8 @@ return [
             'macro_helper'           => '',
             'signature_image'        => 'Upload Signature',
             'signature_image_helper' => '',
+            'roles'                  => 'Roles',
+            'roles_helper'           => '',
         ],
     ],
     'imageUpload'             => [
@@ -460,8 +464,8 @@ return [
         'title_singular' => 'Radiologist Payment List',
     ],
     'clientManagementSetting' => [
-        'title'          => 'Paramètres de gestion des client',
-        'title_singular' => 'Paramètres de gestion des client',
+        'title'          => 'Paramètres gestion client',
+        'title_singular' => 'Paramètres gestion client',
     ],
     'currency'                => [
         'title'          => 'Devises',
@@ -518,7 +522,7 @@ return [
         ],
     ],
     'clientStatus'            => [
-        'title'          => 'Statut des clients',
+        'title'          => 'Statuts client',
         'title_singular' => 'Statut du client',
         'fields'         => [
             'id'                => 'ID',
@@ -534,7 +538,7 @@ return [
         ],
     ],
     'projectStatus'           => [
-        'title'          => 'Les Services',
+        'title'          => 'Etat des projets',
         'title_singular' => 'Etat du projet',
         'fields'         => [
             'id'                => 'ID',
@@ -550,8 +554,8 @@ return [
         ],
     ],
     'clientManagement'        => [
-        'title'          => 'Gestion des clients',
-        'title_singular' => 'Gestion des clients',
+        'title'          => 'Gestion client',
+        'title_singular' => 'Gestion client',
     ],
     'client'                  => [
         'title'          => 'Clients',
@@ -586,7 +590,7 @@ return [
         ],
     ],
     'project'                 => [
-        'title'          => 'Jours',
+        'title'          => 'Projets',
         'title_singular' => 'Projet',
         'fields'         => [
             'id'                 => 'ID',
@@ -682,8 +686,8 @@ return [
         ],
     ],
     'clientReport'            => [
-        'title'          => 'Etats',
-        'title_singular' => 'Etat',
+        'title'          => 'Rapports',
+        'title_singular' => 'Rapport',
         'reports'        => [
             'month'       => 'Month',
             'income'      => 'Income',
@@ -777,8 +781,8 @@ return [
         'title'          => 'Rapport mensuel',
         'title_singular' => 'Rapport mensuel',
         'reports'        => [
-            'title'             => 'Etats',
-            'title_singular'    => 'Etat',
+            'title'             => 'Rapports',
+            'title_singular'    => 'Rapport',
             'incomeReport'      => 'Rapport de revenus',
             'incomeByCategory'  => 'Revenu par catégorie',
             'expenseByCategory' => 'Dépenses par catégorie',

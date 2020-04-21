@@ -22,6 +22,11 @@ class StoreRadiologistRequest extends FormRequest
         return [
             'name'            => [
                 'required'],
+            'roles.*'         => [
+                'integer'],
+            'roles'           => [
+                'required',
+                'array'],
             'hospitals.*'     => [
                 'integer'],
             'hospitals'       => [

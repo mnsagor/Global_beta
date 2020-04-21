@@ -9,6 +9,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyHospitalRequest;
 use App\Http\Requests\StoreHospitalRequest;
 use App\Http\Requests\UpdateHospitalRequest;
+use App\Role;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\Models\Media;
@@ -24,7 +25,7 @@ class HospitalController extends Controller
         abort_if(Gate::denies('hospital_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Hospital::with(['created_by'])->select(sprintf('%s.*', (new Hospital)->table));
+            $query = Hospital::with(['roles', 'created_by'])->select(sprintf('%s.*', (new Hospital)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -50,6 +51,15 @@ class HospitalController extends Controller
             });
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : "";
+            });
+            $table->editColumn('roles', function ($row) {
+                $labels = [];
+
+                foreach ($row->roles as $role) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $role->title);
+                }
+
+                return implode(' ', $labels);
             });
             $table->editColumn('hospital_code', function ($row) {
                 return $row->hospital_code ? $row->hospital_code : "";
@@ -97,7 +107,7 @@ class HospitalController extends Controller
                 return $row->pacs_port ? $row->pacs_port : "";
             });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->rawColumns(['actions', 'placeholder', 'roles']);
 
             return $table->make(true);
         }
@@ -109,12 +119,15 @@ class HospitalController extends Controller
     {
         abort_if(Gate::denies('hospital_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.hospitals.create');
+        $roles = Role::all()->pluck('title', 'id');
+
+        return view('admin.hospitals.create', compact('roles'));
     }
 
     public function store(StoreHospitalRequest $request)
     {
         $hospital = Hospital::create($request->all());
+        $hospital->roles()->sync($request->input('roles', []));
 
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $hospital->id]);
@@ -128,14 +141,17 @@ class HospitalController extends Controller
     {
         abort_if(Gate::denies('hospital_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $hospital->load('created_by');
+        $roles = Role::all()->pluck('title', 'id');
 
-        return view('admin.hospitals.edit', compact('hospital'));
+        $hospital->load('roles', 'created_by');
+
+        return view('admin.hospitals.edit', compact('roles', 'hospital'));
     }
 
     public function update(UpdateHospitalRequest $request, Hospital $hospital)
     {
         $hospital->update($request->all());
+        $hospital->roles()->sync($request->input('roles', []));
 
         return redirect()->route('admin.hospitals.index');
 
@@ -145,7 +161,7 @@ class HospitalController extends Controller
     {
         abort_if(Gate::denies('hospital_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $hospital->load('created_by', 'hospitalWorkOrders', 'hospitalRadiologists');
+        $hospital->load('roles', 'created_by', 'hospitalWorkOrders', 'hospitalRadiologists');
 
         return view('admin.hospitals.show', compact('hospital'));
     }

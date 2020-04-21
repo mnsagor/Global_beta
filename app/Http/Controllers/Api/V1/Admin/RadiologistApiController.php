@@ -20,13 +20,14 @@ class RadiologistApiController extends Controller
     {
         abort_if(Gate::denies('radiologist_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new RadiologistResource(Radiologist::with(['hospitals', 'modalities', 'macros', 'created_by'])->get());
+        return new RadiologistResource(Radiologist::with(['roles', 'hospitals', 'modalities', 'macros', 'created_by'])->get());
 
     }
 
     public function store(StoreRadiologistRequest $request)
     {
         $radiologist = Radiologist::create($request->all());
+        $radiologist->roles()->sync($request->input('roles', []));
         $radiologist->hospitals()->sync($request->input('hospitals', []));
         $radiologist->modalities()->sync($request->input('modalities', []));
         $radiologist->macros()->sync($request->input('macros', []));
@@ -45,13 +46,14 @@ class RadiologistApiController extends Controller
     {
         abort_if(Gate::denies('radiologist_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new RadiologistResource($radiologist->load(['hospitals', 'modalities', 'macros', 'created_by']));
+        return new RadiologistResource($radiologist->load(['roles', 'hospitals', 'modalities', 'macros', 'created_by']));
 
     }
 
     public function update(UpdateRadiologistRequest $request, Radiologist $radiologist)
     {
         $radiologist->update($request->all());
+        $radiologist->roles()->sync($request->input('roles', []));
         $radiologist->hospitals()->sync($request->input('hospitals', []));
         $radiologist->modalities()->sync($request->input('modalities', []));
         $radiologist->macros()->sync($request->input('macros', []));

@@ -13,13 +13,6 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
             AssetStatusTableSeeder::class,
-
-
-            ProcedureTypeSeeder::class,
-            WorkOrderStatusSeeder::class,
-            ModalitySeeder::class,
-            ProcedureSeeder::class,
-            DefaultMacrosSeeder::class,
         ]);
 
     }
