@@ -429,8 +429,6 @@ return [
             'signature_image_helper' => '',
             'roles'                  => 'Roles',
             'roles_helper'           => '',
-            'status'                 => 'Status',
-            'status_helper'          => '',
         ],
     ],
     'imageUpload'             => [

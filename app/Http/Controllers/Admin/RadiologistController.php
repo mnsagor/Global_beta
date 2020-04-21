@@ -64,9 +64,6 @@ class RadiologistController extends Controller
 
                 return implode(' ', $labels);
             });
-            $table->editColumn('status', function ($row) {
-                return $row->status ? Radiologist::STATUS_SELECT[$row->status] : '';
-            });
             $table->editColumn('phone_number', function ($row) {
                 return $row->phone_number ? $row->phone_number : "";
             });
