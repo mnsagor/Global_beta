@@ -15,6 +15,7 @@ class CreateRadiologistsTable extends Migration
             $table->longText('address')->nullable();
             $table->string('designation')->nullable();
             $table->string('gender');
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
         });

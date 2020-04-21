@@ -23,6 +23,11 @@ class Hospital extends Model implements HasMedia
         'deleted_at',
     ];
 
+    const STATUS_SELECT = [
+        '1' => 'Active',
+        '0' => 'Inactive',
+    ];
+
     public static $searchable = [
         'title',
         'hospital_code',
@@ -39,6 +44,7 @@ class Hospital extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'status',
         'title',
         'created_at',
         'hospital_code',
@@ -57,9 +63,9 @@ class Hospital extends Model implements HasMedia
         'pacs_ae_title',
         'pacs_host_name',
         'pacs_port',
+        'created_by_id',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     protected function serializeDate(DateTimeInterface $date)
@@ -90,12 +96,6 @@ class Hospital extends Model implements HasMedia
     public function hospitalRadiologists()
     {
         return $this->belongsToMany(Radiologist::class);
-
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
 
     }
 

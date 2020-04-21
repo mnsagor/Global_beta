@@ -27,6 +27,7 @@ class CreateHospitalsTable extends Migration
             $table->string('pacs_ae_title')->nullable();
             $table->string('pacs_host_name')->nullable();
             $table->string('pacs_port')->nullable();
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -64,26 +64,10 @@
                             {{ trans('cruds.user.title') }}
                         </a>
                     </li>
-                    <li role="presentation">
-                        <a href="#roles_radiologists" aria-controls="roles_radiologists" role="tab" data-toggle="tab">
-                            {{ trans('cruds.radiologist.title') }}
-                        </a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#roles_hospitals" aria-controls="roles_hospitals" role="tab" data-toggle="tab">
-                            {{ trans('cruds.hospital.title') }}
-                        </a>
-                    </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane" role="tabpanel" id="roles_users">
                         @includeIf('admin.roles.relationships.rolesUsers', ['users' => $role->rolesUsers])
-                    </div>
-                    <div class="tab-pane" role="tabpanel" id="roles_radiologists">
-                        @includeIf('admin.roles.relationships.rolesRadiologists', ['radiologists' => $role->rolesRadiologists])
-                    </div>
-                    <div class="tab-pane" role="tabpanel" id="roles_hospitals">
-                        @includeIf('admin.roles.relationships.rolesHospitals', ['hospitals' => $role->rolesHospitals])
                     </div>
                 </div>
             </div>

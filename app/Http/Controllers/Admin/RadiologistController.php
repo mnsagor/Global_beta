@@ -12,7 +12,6 @@ use App\Http\Requests\UpdateRadiologistRequest;
 use App\Macro;
 use App\Modality;
 use App\Radiologist;
-use App\Role;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\Models\Media;
@@ -28,7 +27,7 @@ class RadiologistController extends Controller
         abort_if(Gate::denies('radiologist_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Radiologist::with(['roles', 'hospitals', 'modalities', 'macros', 'created_by'])->select(sprintf('%s.*', (new Radiologist)->table));
+            $query = Radiologist::with(['hospitals', 'modalities', 'macros', 'created_by'])->select(sprintf('%s.*', (new Radiologist)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -55,14 +54,8 @@ class RadiologistController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : "";
             });
-            $table->editColumn('roles', function ($row) {
-                $labels = [];
-
-                foreach ($row->roles as $role) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $role->title);
-                }
-
-                return implode(' ', $labels);
+            $table->editColumn('status', function ($row) {
+                return $row->status ? Radiologist::STATUS_SELECT[$row->status] : '';
             });
             $table->editColumn('phone_number', function ($row) {
                 return $row->phone_number ? $row->phone_number : "";
@@ -113,7 +106,7 @@ class RadiologistController extends Controller
 
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'roles', 'hospital', 'modality', 'macro', 'signature_image']);
+            $table->rawColumns(['actions', 'placeholder', 'hospital', 'modality', 'macro', 'signature_image']);
 
             return $table->make(true);
         }
@@ -125,21 +118,18 @@ class RadiologistController extends Controller
     {
         abort_if(Gate::denies('radiologist_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $roles = Role::all()->pluck('title', 'id');
-
         $hospitals = Hospital::all()->pluck('title', 'id');
 
         $modalities = Modality::all()->pluck('title', 'id');
 
         $macros = Macro::all()->pluck('title', 'id');
 
-        return view('admin.radiologists.create', compact('roles', 'hospitals', 'modalities', 'macros'));
+        return view('admin.radiologists.create', compact('hospitals', 'modalities', 'macros'));
     }
 
     public function store(StoreRadiologistRequest $request)
     {
         $radiologist = Radiologist::create($request->all());
-        $radiologist->roles()->sync($request->input('roles', []));
         $radiologist->hospitals()->sync($request->input('hospitals', []));
         $radiologist->modalities()->sync($request->input('modalities', []));
         $radiologist->macros()->sync($request->input('macros', []));
@@ -160,23 +150,20 @@ class RadiologistController extends Controller
     {
         abort_if(Gate::denies('radiologist_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $roles = Role::all()->pluck('title', 'id');
-
         $hospitals = Hospital::all()->pluck('title', 'id');
 
         $modalities = Modality::all()->pluck('title', 'id');
 
         $macros = Macro::all()->pluck('title', 'id');
 
-        $radiologist->load('roles', 'hospitals', 'modalities', 'macros', 'created_by');
+        $radiologist->load('hospitals', 'modalities', 'macros', 'created_by');
 
-        return view('admin.radiologists.edit', compact('roles', 'hospitals', 'modalities', 'macros', 'radiologist'));
+        return view('admin.radiologists.edit', compact('hospitals', 'modalities', 'macros', 'radiologist'));
     }
 
     public function update(UpdateRadiologistRequest $request, Radiologist $radiologist)
     {
         $radiologist->update($request->all());
-        $radiologist->roles()->sync($request->input('roles', []));
         $radiologist->hospitals()->sync($request->input('hospitals', []));
         $radiologist->modalities()->sync($request->input('modalities', []));
         $radiologist->macros()->sync($request->input('macros', []));
@@ -198,7 +185,7 @@ class RadiologistController extends Controller
     {
         abort_if(Gate::denies('radiologist_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $radiologist->load('roles', 'hospitals', 'modalities', 'macros', 'created_by', 'radiologistWorkOrders');
+        $radiologist->load('hospitals', 'modalities', 'macros', 'created_by', 'radiologistWorkOrders');
 
         return view('admin.radiologists.show', compact('radiologist'));
     }

@@ -22,11 +22,8 @@ class UpdateRadiologistRequest extends FormRequest
         return [
             'name'         => [
                 'required'],
-            'roles.*'      => [
-                'integer'],
-            'roles'        => [
-                'required',
-                'array'],
+            'status'       => [
+                'required'],
             'hospitals.*'  => [
                 'integer'],
             'hospitals'    => [
