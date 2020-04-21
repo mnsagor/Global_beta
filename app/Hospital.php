@@ -44,8 +44,8 @@ class Hospital extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'status',
         'title',
+        'status',
         'created_at',
         'hospital_code',
         'address',

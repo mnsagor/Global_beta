@@ -48,11 +48,11 @@ class HospitalController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : "";
             });
-            $table->editColumn('status', function ($row) {
-                return $row->status ? Hospital::STATUS_SELECT[$row->status] : '';
-            });
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : "";
+            });
+            $table->editColumn('status', function ($row) {
+                return $row->status ? Hospital::STATUS_SELECT[$row->status] : '';
             });
             $table->editColumn('hospital_code', function ($row) {
                 return $row->hospital_code ? $row->hospital_code : "";
