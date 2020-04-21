@@ -32,6 +32,11 @@ class Radiologist extends Model implements HasMedia
         'deleted_at',
     ];
 
+    const STATUS_SELECT = [
+        '1' => 'Active',
+        '0' => 'Inactive',
+    ];
+
     public static $searchable = [
         'phone_number',
         'address',
@@ -41,6 +46,7 @@ class Radiologist extends Model implements HasMedia
     protected $fillable = [
         'created_at',
         'name',
+        'status',
         'phone_number',
         'address',
         'designation',

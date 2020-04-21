@@ -6,8 +6,8 @@ return [
         'title_singular' => '用户管理',
     ],
     'permission'              => [
-        'title'          => 'Permissions',
-        'title_singular' => 'Permission',
+        'title'          => '权限',
+        'title_singular' => '权限',
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => '',
@@ -40,8 +40,8 @@ return [
         ],
     ],
     'user'                    => [
-        'title'          => 'Users',
-        'title_singular' => 'User',
+        'title'          => '用户',
+        'title_singular' => '用户',
         'fields'         => [
             'id'                       => 'ID',
             'id_helper'                => '',
@@ -429,6 +429,8 @@ return [
             'signature_image_helper' => '',
             'roles'                  => 'Roles',
             'roles_helper'           => '',
+            'status'                 => 'Status',
+            'status_helper'          => '',
         ],
     ],
     'imageUpload'             => [

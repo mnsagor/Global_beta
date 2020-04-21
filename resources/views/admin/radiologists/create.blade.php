@@ -35,6 +35,19 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.radiologist.fields.roles_helper') }}</span>
                         </div>
+                        <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+                            <label class="required">{{ trans('cruds.radiologist.fields.status') }}</label>
+                            <select class="form-control" name="status" id="status" required>
+                                <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                @foreach(App\Radiologist::STATUS_SELECT as $key => $label)
+                                    <option value="{{ $key }}" {{ old('status', '1') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('status'))
+                                <span class="help-block" role="alert">{{ $errors->first('status') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.radiologist.fields.status_helper') }}</span>
+                        </div>
                         <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : '' }}">
                             <label for="phone_number">{{ trans('cruds.radiologist.fields.phone_number') }}</label>
                             <input class="form-control" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', '') }}">
