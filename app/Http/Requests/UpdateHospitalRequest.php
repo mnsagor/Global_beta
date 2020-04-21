@@ -20,11 +20,11 @@ class UpdateHospitalRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => [
-                'required'],
             'title'  => [
                 'required',
                 'unique:hospitals,title,' . request()->route('hospital')->id],
+            'status' => [
+                'required'],
         ];
 
     }

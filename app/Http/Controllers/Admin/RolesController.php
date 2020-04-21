@@ -65,7 +65,7 @@ class RolesController extends Controller
     {
         abort_if(Gate::denies('role_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $role->load('permissions', 'rolesUsers', 'rolesRadiologists', 'rolesHospitals');
+        $role->load('permissions', 'rolesUsers');
 
         return view('admin.roles.show', compact('role'));
     }
