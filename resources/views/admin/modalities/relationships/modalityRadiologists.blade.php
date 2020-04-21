@@ -34,9 +34,6 @@
                                         {{ trans('cruds.radiologist.fields.roles') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.radiologist.fields.status') }}
-                                    </th>
-                                    <th>
                                         {{ trans('cruds.radiologist.fields.phone_number') }}
                                     </th>
                                     <th>
@@ -78,9 +75,6 @@
                                             @foreach($radiologist->roles as $key => $item)
                                                 <span class="label label-info label-many">{{ $item->title }}</span>
                                             @endforeach
-                                        </td>
-                                        <td>
-                                            {{ App\Radiologist::STATUS_SELECT[$radiologist->status] ?? '' }}
                                         </td>
                                         <td>
                                             {{ $radiologist->phone_number ?? '' }}

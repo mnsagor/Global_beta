@@ -45,14 +45,6 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.radiologist.fields.status') }}
-                                    </th>
-                                    <td>
-                                        {{ App\Radiologist::STATUS_SELECT[$radiologist->status] ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
                                         {{ trans('cruds.radiologist.fields.phone_number') }}
                                     </th>
                                     <td>
