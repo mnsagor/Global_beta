@@ -35,6 +35,16 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.hospital.fields.roles') }}
+                                    </th>
+                                    <td>
+                                        @foreach($hospital->roles as $key => $roles)
+                                            <span class="label label-info">{{ $roles->title }}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.hospital.fields.hospital_code') }}
                                     </th>
                                     <td>

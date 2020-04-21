@@ -3,7 +3,7 @@
 return [
     'actions'                              => 'Acciones',
     'add'                                  => 'Agregar',
-    'allRightsReserved'                    => 'Todos los derecho reservados.',
+    'allRightsReserved'                    => 'Todos los derechos reservados.',
     'areYouSure'                           => 'Estás seguro?',
     'clickHereToVerify'                    => 'Haga click para verificar',
     'create'                               => 'Crear',

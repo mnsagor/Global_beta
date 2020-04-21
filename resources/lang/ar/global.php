@@ -52,7 +52,7 @@ return [
     'yourAccountNeedsAdminApproval'        => 'يحتاج حسابك إلى موافقة المسؤول من أجل تسجيل الدخول',
     'submit'                               => 'إرسال',
     'relatedData'                          => 'Related Data',
-    'change_password_success'              => 'Password changed successfully',
+    'change_password_success'              => 'تم تغير كلمة المرور بنجاح',
     'datatables'                           => [
         'copy'          => 'نسخ',
         'csv'           => 'CSV',
@@ -72,9 +72,9 @@ return [
         'plan_purchased_successfully' => 'Plan purchased successfully',
     ],
     'payments'                             => [
-        'title'        => 'Payments',
-        'payment_date' => 'Payment Date',
-        'amount'       => 'Amount',
+        'title'        => 'الفواتير',
+        'payment_date' => 'تاريخ الفاتورة',
+        'amount'       => 'المجموع',
     ],
     'action'                               => 'العمل',
     'action_id'                            => 'تعريف العمل',

@@ -33,20 +33,20 @@ class Radiologist extends Model implements HasMedia
     ];
 
     public static $searchable = [
+        'phone_number',
         'address',
         'designation',
-        'phone_number',
     ];
 
     protected $fillable = [
-        'name',
-        'gender',
-        'address',
         'created_at',
+        'name',
+        'phone_number',
+        'address',
+        'designation',
+        'gender',
         'updated_at',
         'deleted_at',
-        'designation',
-        'phone_number',
         'created_by_id',
     ];
 
@@ -72,6 +72,12 @@ class Radiologist extends Model implements HasMedia
     public function radiologistWorkOrders()
     {
         return $this->hasMany(WorkOrder::class, 'radiologist_id', 'id');
+
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
 
     }
 

@@ -36,13 +36,13 @@ class Macro extends Model implements HasMedia
 
     protected $fillable = [
         'title',
+        'modality_id',
+        'procedure_id',
         'status',
         'details',
         'created_at',
         'updated_at',
         'deleted_at',
-        'modality_id',
-        'procedure_id',
         'created_by_id',
     ];
 

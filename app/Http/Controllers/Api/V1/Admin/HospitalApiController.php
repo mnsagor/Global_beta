@@ -20,13 +20,14 @@ class HospitalApiController extends Controller
     {
         abort_if(Gate::denies('hospital_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new HospitalResource(Hospital::with(['created_by'])->get());
+        return new HospitalResource(Hospital::with(['roles', 'created_by'])->get());
 
     }
 
     public function store(StoreHospitalRequest $request)
     {
         $hospital = Hospital::create($request->all());
+        $hospital->roles()->sync($request->input('roles', []));
 
         return (new HospitalResource($hospital))
             ->response()
@@ -38,13 +39,14 @@ class HospitalApiController extends Controller
     {
         abort_if(Gate::denies('hospital_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new HospitalResource($hospital->load(['created_by']));
+        return new HospitalResource($hospital->load(['roles', 'created_by']));
 
     }
 
     public function update(UpdateHospitalRequest $request, Hospital $hospital)
     {
         $hospital->update($request->all());
+        $hospital->roles()->sync($request->input('roles', []));
 
         return (new HospitalResource($hospital))
             ->response()

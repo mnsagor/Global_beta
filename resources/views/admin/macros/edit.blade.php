@@ -20,10 +20,9 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.macro.fields.title_helper') }}</span>
                         </div>
-{{--                        select the modality--}}
                         <div class="form-group {{ $errors->has('modality') ? 'has-error' : '' }}">
                             <label class="required" for="modality_id">{{ trans('cruds.macro.fields.modality') }}</label>
-                            <select class="form-control select2 dynamic" name="modality_id" id="modality_id" data-dependent="procedure_id" required>
+                            <select class="form-control select2" name="modality_id" id="modality_id" required>
                                 @foreach($modalities as $id => $modality)
                                     <option value="{{ $id }}" {{ ($macro->modality ? $macro->modality->id : old('modality_id')) == $id ? 'selected' : '' }}>{{ $modality }}</option>
                                 @endforeach
@@ -33,14 +32,12 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.macro.fields.modality_helper') }}</span>
                         </div>
-{{--                        select corresponding procedure--}}
                         <div class="form-group {{ $errors->has('procedure') ? 'has-error' : '' }}">
                             <label class="required" for="procedure_id">{{ trans('cruds.macro.fields.procedure') }}</label>
                             <select class="form-control select2" name="procedure_id" id="procedure_id" required>
-{{--                                @foreach($procedures as $id => $procedure)--}}
-{{--                                    <option value="{{ $id }}" {{ ($macro->procedure ? $macro->procedure->id : old('procedure_id')) == $id ? 'selected' : '' }}>{{ $procedure }}</option>--}}
-{{--                                @endforeach--}}
-                                <option value="">Select Procedure</option>
+                                @foreach($procedures as $id => $procedure)
+                                    <option value="{{ $id }}" {{ ($macro->procedure ? $macro->procedure->id : old('procedure_id')) == $id ? 'selected' : '' }}>{{ $procedure }}</option>
+                                @endforeach
                             </select>
                             @if($errors->has('procedure'))
                                 <span class="help-block" role="alert">{{ $errors->first('procedure') }}</span>
@@ -87,30 +84,6 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-
-        $('.dynamic').change(function () {
-            if($(this).val() != '')
-            {
-                var select = $(this).attr("id");
-                var value = $(this).val();
-                var dependent = $(this).data('dependent');
-                var _token = $('input[name="_token"]').val();
-                $.ajax({
-                    url:"{{ route('admin.macros.fetchProcedures') }}",
-                    method:"POST",
-                    data:{select:select, value:value, _token:_token, dependent:dependent},
-                    success:function(result)
-                    {
-                        $('#'+dependent).html(result);
-                    }
-
-                })
-            }
-        });
-
-        $('#modality_id').change(function(){
-            $('#procedure_id').val('');
-        });
   function SimpleUploadAdapter(editor) {
     editor.plugins.get('FileRepository').createUploadAdapter = function(loader) {
       return {

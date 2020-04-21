@@ -20,6 +20,22 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.radiologist.fields.name_helper') }}</span>
                         </div>
+                        <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }}">
+                            <label class="required" for="roles">{{ trans('cruds.radiologist.fields.roles') }}</label>
+                            <div style="padding-bottom: 4px">
+                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                            </div>
+                            <select class="form-control select2" name="roles[]" id="roles" multiple required>
+                                @foreach($roles as $id => $roles)
+                                    <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || $radiologist->roles->contains($id)) ? 'selected' : '' }}>{{ $roles }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('roles'))
+                                <span class="help-block" role="alert">{{ $errors->first('roles') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.radiologist.fields.roles_helper') }}</span>
+                        </div>
                         <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : '' }}">
                             <label for="phone_number">{{ trans('cruds.radiologist.fields.phone_number') }}</label>
                             <input class="form-control" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', $radiologist->phone_number) }}">

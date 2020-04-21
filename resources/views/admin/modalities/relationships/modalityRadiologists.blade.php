@@ -31,6 +31,9 @@
                                         {{ trans('cruds.radiologist.fields.name') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.radiologist.fields.roles') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.radiologist.fields.phone_number') }}
                                     </th>
                                     <th>
@@ -67,6 +70,11 @@
                                         </td>
                                         <td>
                                             {{ $radiologist->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            @foreach($radiologist->roles as $key => $item)
+                                                <span class="label label-info label-many">{{ $item->title }}</span>
+                                            @endforeach
                                         </td>
                                         <td>
                                             {{ $radiologist->phone_number ?? '' }}
