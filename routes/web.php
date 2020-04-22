@@ -77,6 +77,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('macros/parse-csv-import', 'MacrosController@parseCsvImport')->name('macros.parseCsvImport');
     Route::post('macros/process-csv-import', 'MacrosController@processCsvImport')->name('macros.processCsvImport');
     Route::resource('macros', 'MacrosController');
+    Route::post('macros/fetch-procedures', 'MacrosController@fetchProcedures')->name('macros.fetchProcedures');
 
     // Companies
     Route::delete('companies/destroy', 'CompanyController@massDestroy')->name('companies.massDestroy');

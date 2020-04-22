@@ -74,7 +74,7 @@ class ProcedureController extends Controller
     {
         abort_if(Gate::denies('procedure_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $modalities = Modality::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $modalities = Modality::all()->where('status',1)->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $procedure_types = ProcedureType::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -93,7 +93,7 @@ class ProcedureController extends Controller
     {
         abort_if(Gate::denies('procedure_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $modalities = Modality::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $modalities = Modality::all()->where('status',1)->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $procedure_types = ProcedureType::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
