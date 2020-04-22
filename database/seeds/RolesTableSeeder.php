@@ -16,6 +16,14 @@ class RolesTableSeeder extends Seeder
                 'id'    => 2,
                 'title' => 'User',
             ],
+            [
+                'id'    => 3,
+                'title' => 'Radiologist',
+            ],
+            [
+                'id'    => 4,
+                'title' => 'Hospital',
+            ],
         ];
 
         Role::insert($roles);
