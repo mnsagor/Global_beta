@@ -11,6 +11,9 @@ class AddRelationshipFieldsToRadiologistsTable extends Migration
         Schema::table('radiologists', function (Blueprint $table) {
             $table->unsignedInteger('created_by_id')->nullable();
             $table->foreign('created_by_id', 'created_by_fk_1277023')->references('id')->on('users');
+
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
     }

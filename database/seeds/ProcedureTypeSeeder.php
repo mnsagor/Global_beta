@@ -16,17 +16,17 @@ class ProcedureTypeSeeder extends Seeder
             [
                 'id' => 1,
                 'title' => 'Single Procedure',
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
             [
                 'id' => 2,
                 'title' => 'Both View Procedure',
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
             [
                 'id' => 3,
                 'title' => 'Contrast',
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
         ];
 

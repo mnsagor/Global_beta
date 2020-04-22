@@ -19,7 +19,7 @@ class ProcedureSeeder extends Seeder
                 'status' => 1,
                 'modality_id' => 1,
                 'procedure_type_id' => 2,
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
             [
                 'id' => 2,
@@ -27,7 +27,7 @@ class ProcedureSeeder extends Seeder
                 'status' => 1,
                 'modality_id' => 1,
                 'procedure_type_id' => 1,
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
             [
                 'id' => 3,
@@ -35,7 +35,7 @@ class ProcedureSeeder extends Seeder
                 'status' => 1,
                 'modality_id' => 1,
                 'procedure_type_id' => 3,
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
             [
                 'id' => 4,
@@ -43,7 +43,7 @@ class ProcedureSeeder extends Seeder
                 'status' => 1,
                 'modality_id' => 2,
                 'procedure_type_id' => 2,
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
             [
                 'id' => 5,
@@ -51,7 +51,7 @@ class ProcedureSeeder extends Seeder
                 'status' => 1,
                 'modality_id' => 2,
                 'procedure_type_id' => 1,
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
             [
                 'id' => 6,
@@ -59,7 +59,7 @@ class ProcedureSeeder extends Seeder
                 'status' => 1,
                 'modality_id' => 3,
                 'procedure_type_id' => 3,
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
             [
                 'id' => 7,
@@ -67,7 +67,7 @@ class ProcedureSeeder extends Seeder
                 'status' => 1,
                 'modality_id' => 4,
                 'procedure_type_id' => 2,
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
             [
                 'id' => 8,
@@ -75,7 +75,7 @@ class ProcedureSeeder extends Seeder
                 'status' => 1,
                 'modality_id' => 5,
                 'procedure_type_id' => 1,
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
             [
                 'id' => 9,
@@ -83,7 +83,7 @@ class ProcedureSeeder extends Seeder
                 'status' => 1,
                 'modality_id' => 6,
                 'procedure_type_id' => 3,
-                'created_by_id' => 1,
+//                'created_by_id' => 1,
             ],
         ];
 

@@ -12,8 +12,10 @@ use App\Http\Requests\UpdateRadiologistRequest;
 use App\Macro;
 use App\Modality;
 use App\Radiologist;
+use App\User;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Spatie\MediaLibrary\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -129,10 +131,23 @@ class RadiologistController extends Controller
 
     public function store(StoreRadiologistRequest $request)
     {
+        //create user
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'approved' => $request['status'],
+        ]);
+
+        $user->roles()->sync($request->input('roles', []));
+
         $radiologist = Radiologist::create($request->all());
         $radiologist->hospitals()->sync($request->input('hospitals', []));
         $radiologist->modalities()->sync($request->input('modalities', []));
         $radiologist->macros()->sync($request->input('macros', []));
+
+        $radiologist->user_id = $user->id;
+        $radiologist->update();
 
         if ($request->input('signature_image', false)) {
             $radiologist->addMedia(storage_path('tmp/uploads/' . $request->input('signature_image')))->toMediaCollection('signature_image');
@@ -163,6 +178,11 @@ class RadiologistController extends Controller
 
     public function update(UpdateRadiologistRequest $request, Radiologist $radiologist)
     {
+//        $user = User::where('id',$radiologist->user_id)->get();
+        $user = User::find($radiologist->user_id);
+        $user->approved = $request->status;
+        $user->update();
+
         $radiologist->update($request->all());
         $radiologist->hospitals()->sync($request->input('hospitals', []));
         $radiologist->modalities()->sync($request->input('modalities', []));
