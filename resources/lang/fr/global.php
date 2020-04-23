@@ -28,7 +28,7 @@ return [
     'register'                             => 'S\'inscrire',
     'remember_me'                          => 'Se souvenir de moi',
     'reset_password'                       => 'Réinitialiser le mot de passe',
-    'send_password'                        => 'Envoyer lien de réinitialisation du mot de passe',
+    'send_password'                        => 'Envoyer réinitialisation mot de passe',
     'save'                                 => 'Enregistrer',
     'search'                               => 'Rechercher',
     'searching'                            => 'Recherche en cours',

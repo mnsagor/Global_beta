@@ -82,6 +82,36 @@
                                     {{ trans('cruds.hospital.fields.pacs_port') }}
                                 </th>
                                 <th>
+                                    {{ trans('cruds.hospital.fields.proprietor_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.proprietor_phone_number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.chairman_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.chairman_phone_number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.director_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.director_phone_number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.accountant_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.accountant_phone_number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.user') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.hospital.fields.modality') }}
+                                </th>
+                                <th>
                                     &nbsp;
                                 </th>
                             </tr>
@@ -158,6 +188,16 @@
 { data: 'pacs_ae_title', name: 'pacs_ae_title' },
 { data: 'pacs_host_name', name: 'pacs_host_name' },
 { data: 'pacs_port', name: 'pacs_port' },
+{ data: 'proprietor_name', name: 'proprietor_name' },
+{ data: 'proprietor_phone_number', name: 'proprietor_phone_number' },
+{ data: 'chairman_name', name: 'chairman_name' },
+{ data: 'chairman_phone_number', name: 'chairman_phone_number' },
+{ data: 'director_name', name: 'director_name' },
+{ data: 'director_phone_number', name: 'director_phone_number' },
+{ data: 'accountant_name', name: 'accountant_name' },
+{ data: 'accountant_phone_number', name: 'accountant_phone_number' },
+{ data: 'user_name', name: 'user.name' },
+{ data: 'modality', name: 'modalities.title' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     order: [[ 1, 'desc' ]],

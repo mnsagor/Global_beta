@@ -28,6 +28,14 @@ class CreateHospitalsTable extends Migration
             $table->string('pacs_host_name')->nullable();
             $table->string('pacs_port')->nullable();
             $table->string('status');
+            $table->string('proprietor_name')->nullable();
+            $table->string('proprietor_phone_number')->nullable();
+            $table->string('chairman_name')->nullable();
+            $table->string('chairman_phone_number')->nullable();
+            $table->string('director_name')->nullable();
+            $table->string('director_phone_number')->nullable();
+            $table->string('accountant_name')->nullable();
+            $table->string('accountant_phone_number')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

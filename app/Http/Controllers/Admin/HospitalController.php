@@ -9,6 +9,8 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyHospitalRequest;
 use App\Http\Requests\StoreHospitalRequest;
 use App\Http\Requests\UpdateHospitalRequest;
+use App\Modality;
+use App\User;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\Models\Media;
@@ -24,7 +26,7 @@ class HospitalController extends Controller
         abort_if(Gate::denies('hospital_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Hospital::with(['created_by'])->select(sprintf('%s.*', (new Hospital)->table));
+            $query = Hospital::with(['user', 'modalities', 'created_by'])->select(sprintf('%s.*', (new Hospital)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -99,8 +101,45 @@ class HospitalController extends Controller
             $table->editColumn('pacs_port', function ($row) {
                 return $row->pacs_port ? $row->pacs_port : "";
             });
+            $table->editColumn('proprietor_name', function ($row) {
+                return $row->proprietor_name ? $row->proprietor_name : "";
+            });
+            $table->editColumn('proprietor_phone_number', function ($row) {
+                return $row->proprietor_phone_number ? $row->proprietor_phone_number : "";
+            });
+            $table->editColumn('chairman_name', function ($row) {
+                return $row->chairman_name ? $row->chairman_name : "";
+            });
+            $table->editColumn('chairman_phone_number', function ($row) {
+                return $row->chairman_phone_number ? $row->chairman_phone_number : "";
+            });
+            $table->editColumn('director_name', function ($row) {
+                return $row->director_name ? $row->director_name : "";
+            });
+            $table->editColumn('director_phone_number', function ($row) {
+                return $row->director_phone_number ? $row->director_phone_number : "";
+            });
+            $table->editColumn('accountant_name', function ($row) {
+                return $row->accountant_name ? $row->accountant_name : "";
+            });
+            $table->editColumn('accountant_phone_number', function ($row) {
+                return $row->accountant_phone_number ? $row->accountant_phone_number : "";
+            });
+            $table->addColumn('user_name', function ($row) {
+                return $row->user ? $row->user->name : '';
+            });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->editColumn('modality', function ($row) {
+                $labels = [];
+
+                foreach ($row->modalities as $modality) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $modality->title);
+                }
+
+                return implode(' ', $labels);
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'user', 'modality']);
 
             return $table->make(true);
         }
@@ -112,12 +151,17 @@ class HospitalController extends Controller
     {
         abort_if(Gate::denies('hospital_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.hospitals.create');
+        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $modalities = Modality::all()->pluck('title', 'id');
+
+        return view('admin.hospitals.create', compact('users', 'modalities'));
     }
 
     public function store(StoreHospitalRequest $request)
     {
         $hospital = Hospital::create($request->all());
+        $hospital->modalities()->sync($request->input('modalities', []));
 
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $hospital->id]);
@@ -131,14 +175,19 @@ class HospitalController extends Controller
     {
         abort_if(Gate::denies('hospital_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $hospital->load('created_by');
+        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.hospitals.edit', compact('hospital'));
+        $modalities = Modality::all()->pluck('title', 'id');
+
+        $hospital->load('user', 'modalities', 'created_by');
+
+        return view('admin.hospitals.edit', compact('users', 'modalities', 'hospital'));
     }
 
     public function update(UpdateHospitalRequest $request, Hospital $hospital)
     {
         $hospital->update($request->all());
+        $hospital->modalities()->sync($request->input('modalities', []));
 
         return redirect()->route('admin.hospitals.index');
 
@@ -148,7 +197,7 @@ class HospitalController extends Controller
     {
         abort_if(Gate::denies('hospital_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $hospital->load('created_by', 'hospitalWorkOrders', 'hospitalRadiologists');
+        $hospital->load('user', 'modalities', 'created_by', 'hospitalWorkOrders', 'hospitalRadiologists');
 
         return view('admin.hospitals.show', compact('hospital'));
     }

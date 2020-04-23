@@ -41,6 +41,8 @@ class Hospital extends Model implements HasMedia
         'pacs_destinaiton_ae_title',
         'pacs_ae_title',
         'pacs_port',
+        'proprietor_name',
+        'proprietor_phone_number',
     ];
 
     protected $fillable = [
@@ -63,6 +65,15 @@ class Hospital extends Model implements HasMedia
         'pacs_ae_title',
         'pacs_host_name',
         'pacs_port',
+        'proprietor_name',
+        'proprietor_phone_number',
+        'chairman_name',
+        'chairman_phone_number',
+        'director_name',
+        'director_phone_number',
+        'accountant_name',
+        'accountant_phone_number',
+        'user_id',
         'created_by_id',
         'updated_at',
         'deleted_at',
@@ -96,6 +107,18 @@ class Hospital extends Model implements HasMedia
     public function hospitalRadiologists()
     {
         return $this->belongsToMany(Radiologist::class);
+
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+
+    }
+
+    public function modalities()
+    {
+        return $this->belongsToMany(Modality::class);
 
     }
 

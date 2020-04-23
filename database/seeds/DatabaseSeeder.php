@@ -13,12 +13,6 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
             AssetStatusTableSeeder::class,
-
-            WorkOrderStatusSeeder::class,
-            ProcedureTypeSeeder::class,
-            ModalitySeeder::class,
-            ProcedureSeeder::class,
-
         ]);
 
     }
