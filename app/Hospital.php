@@ -73,7 +73,6 @@ class Hospital extends Model implements HasMedia
         'director_phone_number',
         'accountant_name',
         'accountant_phone_number',
-        'user_id',
         'created_by_id',
         'updated_at',
         'deleted_at',
@@ -107,18 +106,6 @@ class Hospital extends Model implements HasMedia
     public function hospitalRadiologists()
     {
         return $this->belongsToMany(Radiologist::class);
-
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-
-    }
-
-    public function modalities()
-    {
-        return $this->belongsToMany(Modality::class);
 
     }
 

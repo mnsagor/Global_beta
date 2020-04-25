@@ -9,15 +9,11 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyHospitalRequest;
 use App\Http\Requests\StoreHospitalRequest;
 use App\Http\Requests\UpdateHospitalRequest;
-use App\Radiologist;
 use Gate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Spatie\MediaLibrary\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
-use App\User;
-use App\Modality;
 
 class HospitalController extends Controller
 {
@@ -103,6 +99,30 @@ class HospitalController extends Controller
             $table->editColumn('pacs_port', function ($row) {
                 return $row->pacs_port ? $row->pacs_port : "";
             });
+            $table->editColumn('proprietor_name', function ($row) {
+                return $row->proprietor_name ? $row->proprietor_name : "";
+            });
+            $table->editColumn('proprietor_phone_number', function ($row) {
+                return $row->proprietor_phone_number ? $row->proprietor_phone_number : "";
+            });
+            $table->editColumn('chairman_name', function ($row) {
+                return $row->chairman_name ? $row->chairman_name : "";
+            });
+            $table->editColumn('chairman_phone_number', function ($row) {
+                return $row->chairman_phone_number ? $row->chairman_phone_number : "";
+            });
+            $table->editColumn('director_name', function ($row) {
+                return $row->director_name ? $row->director_name : "";
+            });
+            $table->editColumn('director_phone_number', function ($row) {
+                return $row->director_phone_number ? $row->director_phone_number : "";
+            });
+            $table->editColumn('accountant_name', function ($row) {
+                return $row->accountant_name ? $row->accountant_name : "";
+            });
+            $table->editColumn('accountant_phone_number', function ($row) {
+                return $row->accountant_phone_number ? $row->accountant_phone_number : "";
+            });
 
             $table->rawColumns(['actions', 'placeholder']);
 
@@ -116,31 +136,12 @@ class HospitalController extends Controller
     {
         abort_if(Gate::denies('hospital_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-        $modalities = Modality::all()->pluck('title', 'id');
-//        $radiologist = Radiologist::all()->where('status',1)->pluck('title','id');
-
-        return view('admin.hospitals.create', compact('users', 'modalities'));
+        return view('admin.hospitals.create');
     }
 
     public function store(StoreHospitalRequest $request)
     {
-        //create user
-        $user = User::create([
-            'name' => $request['title'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'approved' => $request['status'],
-        ]);
-
-        $user->roles()->sync($request->input('roles', []));
-
         $hospital = Hospital::create($request->all());
-        $hospital->modalities()->sync($request->input('modalities', []));
-//        $radiologist->radiologists()->sync($request->input('radiologists', []));
-
-        $hospital->user_id = $user->id;
-        $hospital->update();
 
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $hospital->id]);
@@ -153,34 +154,15 @@ class HospitalController extends Controller
     public function edit(Hospital $hospital)
     {
         abort_if(Gate::denies('hospital_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $modalities = Modality::all()->pluck('title', 'id');
+        $hospital->load('created_by');
 
-        $hospital->load('user', 'modalities', 'created_by');
-
-//        $hospital->load('created_by');
-
-        return view('admin.hospitals.edit', compact('users', 'modalities','hospital'));
+        return view('admin.hospitals.edit', compact('hospital'));
     }
 
     public function update(UpdateHospitalRequest $request, Hospital $hospital)
     {
-        $user = User::findOrFail($hospital->user_id);
-        if($user != null)
-        {
-            $user->name = $request->title;
-            $user->approved = $request->status;
-            $user->update();
-        }
-
-//        $user = User::find($hospital->user_id);
-//        $user->approved = $request->status;
-//        $user->update();
-
         $hospital->update($request->all());
-
-        $hospital->modalities()->sync($request->input('modalities', []));
 
         return redirect()->route('admin.hospitals.index');
 
@@ -190,7 +172,7 @@ class HospitalController extends Controller
     {
         abort_if(Gate::denies('hospital_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $hospital->load('user', 'modalities', 'created_by', 'hospitalWorkOrders', 'hospitalRadiologists');
+        $hospital->load('created_by', 'hospitalWorkOrders', 'hospitalRadiologists');
 
         return view('admin.hospitals.show', compact('hospital'));
     }

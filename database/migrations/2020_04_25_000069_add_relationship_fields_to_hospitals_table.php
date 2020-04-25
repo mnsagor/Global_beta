@@ -11,8 +11,6 @@ class AddRelationshipFieldsToHospitalsTable extends Migration
         Schema::table('hospitals', function (Blueprint $table) {
             $table->unsignedInteger('created_by_id')->nullable();
             $table->foreign('created_by_id', 'created_by_fk_1276995')->references('id')->on('users');
-            $table->unsignedInteger('user_id')->nullable();
-            $table->foreign('user_id', 'user_fk_1363480')->references('id')->on('users');
         });
 
     }

@@ -25,6 +25,8 @@ class AddRelationshipFieldsToWorkOrdersTable extends Migration
             $table->foreign('modality_id', 'modality_fk_1319820')->references('id')->on('modalities');
             $table->unsignedInteger('radiologist_id')->nullable();
             $table->foreign('radiologist_id', 'radiologist_fk_1319822')->references('id')->on('radiologists');
+            $table->unsignedInteger('procedure_id');
+            $table->foreign('procedure_id', 'procedure_fk_1372947')->references('id')->on('procedures');
         });
 
     }

@@ -100,19 +100,15 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.workOrder.fields.modality_helper') }}</span>
                         </div>
-                        <div class="form-group {{ $errors->has('procedures') ? 'has-error' : '' }}">
-                            <label class="required" for="procedures">{{ trans('cruds.workOrder.fields.procedure') }}</label>
-                            <div style="padding-bottom: 4px">
-                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                            </div>
-                            <select class="form-control select2" name="procedures[]" id="procedures" multiple required>
+                        <div class="form-group {{ $errors->has('procedure') ? 'has-error' : '' }}">
+                            <label class="required" for="procedure_id">{{ trans('cruds.workOrder.fields.procedure') }}</label>
+                            <select class="form-control select2" name="procedure_id" id="procedure_id" required>
                                 @foreach($procedures as $id => $procedure)
-                                    <option value="{{ $id }}" {{ (in_array($id, old('procedures', [])) || $workOrder->procedures->contains($id)) ? 'selected' : '' }}>{{ $procedure }}</option>
+                                    <option value="{{ $id }}" {{ ($workOrder->procedure ? $workOrder->procedure->id : old('procedure_id')) == $id ? 'selected' : '' }}>{{ $procedure }}</option>
                                 @endforeach
                             </select>
-                            @if($errors->has('procedures'))
-                                <span class="help-block" role="alert">{{ $errors->first('procedures') }}</span>
+                            @if($errors->has('procedure'))
+                                <span class="help-block" role="alert">{{ $errors->first('procedure') }}</span>
                             @endif
                             <span class="help-block">{{ trans('cruds.workOrder.fields.procedure_helper') }}</span>
                         </div>

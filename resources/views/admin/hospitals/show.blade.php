@@ -169,89 +169,70 @@
                                         {{ $hospital->pacs_port }}
                                     </td>
                                 </tr>
-{{--                                <tr>--}}
-{{--                                    <th>--}}
-{{--                                        {{ trans('cruds.hospital.fields.proprietor_name') }}--}}
-{{--                                    </th>--}}
-{{--                                    <td>--}}
-{{--                                        {{ $hospital->proprietor_name }}--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>--}}
-{{--                                        {{ trans('cruds.hospital.fields.proprietor_phone_number') }}--}}
-{{--                                    </th>--}}
-{{--                                    <td>--}}
-{{--                                        {{ $hospital->proprietor_phone_number }}--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>--}}
-{{--                                        {{ trans('cruds.hospital.fields.chairman_name') }}--}}
-{{--                                    </th>--}}
-{{--                                    <td>--}}
-{{--                                        {{ $hospital->chairman_name }}--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>--}}
-{{--                                        {{ trans('cruds.hospital.fields.chairman_phone_number') }}--}}
-{{--                                    </th>--}}
-{{--                                    <td>--}}
-{{--                                        {{ $hospital->chairman_phone_number }}--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>--}}
-{{--                                        {{ trans('cruds.hospital.fields.director_name') }}--}}
-{{--                                    </th>--}}
-{{--                                    <td>--}}
-{{--                                        {{ $hospital->director_name }}--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>--}}
-{{--                                        {{ trans('cruds.hospital.fields.director_phone_number') }}--}}
-{{--                                    </th>--}}
-{{--                                    <td>--}}
-{{--                                        {{ $hospital->director_phone_number }}--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>--}}
-{{--                                        {{ trans('cruds.hospital.fields.accountant_name') }}--}}
-{{--                                    </th>--}}
-{{--                                    <td>--}}
-{{--                                        {{ $hospital->accountant_name }}--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>--}}
-{{--                                        {{ trans('cruds.hospital.fields.accountant_phone_number') }}--}}
-{{--                                    </th>--}}
-{{--                                    <td>--}}
-{{--                                        {{ $hospital->accountant_phone_number }}--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>--}}
-{{--                                        {{ trans('cruds.hospital.fields.user') }}--}}
-{{--                                    </th>--}}
-{{--                                    <td>--}}
-{{--                                        {{ $hospital->user->name ?? '' }}--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>--}}
-{{--                                        {{ trans('cruds.hospital.fields.modality') }}--}}
-{{--                                    </th>--}}
-{{--                                    <td>--}}
-{{--                                        @foreach($hospital->modalities as $key => $modality)--}}
-{{--                                            <span class="label label-info">{{ $modality->title }}</span>--}}
-{{--                                        @endforeach--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.hospital.fields.proprietor_name') }}
+                                    </th>
+                                    <td>
+                                        {{ $hospital->proprietor_name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.hospital.fields.proprietor_phone_number') }}
+                                    </th>
+                                    <td>
+                                        {{ $hospital->proprietor_phone_number }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.hospital.fields.chairman_name') }}
+                                    </th>
+                                    <td>
+                                        {{ $hospital->chairman_name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.hospital.fields.chairman_phone_number') }}
+                                    </th>
+                                    <td>
+                                        {{ $hospital->chairman_phone_number }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.hospital.fields.director_name') }}
+                                    </th>
+                                    <td>
+                                        {{ $hospital->director_name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.hospital.fields.director_phone_number') }}
+                                    </th>
+                                    <td>
+                                        {{ $hospital->director_phone_number }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.hospital.fields.accountant_name') }}
+                                    </th>
+                                    <td>
+                                        {{ $hospital->accountant_name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.hospital.fields.accountant_phone_number') }}
+                                    </th>
+                                    <td>
+                                        {{ $hospital->accountant_phone_number }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

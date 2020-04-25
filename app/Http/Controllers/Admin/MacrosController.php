@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 use Spatie\MediaLibrary\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\DB;
 
 class MacrosController extends Controller
 {
@@ -78,9 +77,9 @@ class MacrosController extends Controller
     {
         abort_if(Gate::denies('macro_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $modalities = Modality::all()->where('status',1)->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $modalities = Modality::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $procedures = Procedure::all()->where('status',1)->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $procedures = Procedure::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.macros.create', compact('modalities', 'procedures'));
     }
@@ -101,9 +100,9 @@ class MacrosController extends Controller
     {
         abort_if(Gate::denies('macro_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $modalities = Modality::all()->where('status',1)->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $modalities = Modality::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $procedures = Procedure::all()->where('status',1)->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $procedures = Procedure::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $macro->load('modality', 'procedure', 'created_by');
 
@@ -155,22 +154,6 @@ class MacrosController extends Controller
         $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media', 'public');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
-
-    }
-
-    public function fetchProcedures (Request $request){
-        $modality_title = $request->get('select');
-        $modality_id = $request->get('value');
-        $dependent = $request->get('dependent');
-
-        $procedures = Procedure::where($modality_title,$modality_id)->where('status',1)->get();
-
-        $output = '<option value="">Select '."Procedure".'</option>';
-        foreach($procedures as $row)
-        {
-            $output .= '<option value="'.$row->id.'">'.$row->title.'</option>';
-        }
-        echo $output;
 
     }
 

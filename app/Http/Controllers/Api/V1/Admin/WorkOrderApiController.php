@@ -20,14 +20,13 @@ class WorkOrderApiController extends Controller
     {
         abort_if(Gate::denies('work_order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new WorkOrderResource(WorkOrder::with(['work_order_status', 'uploaded_by', 'hospital', 'doctor', 'patient', 'modality', 'procedures', 'radiologist', 'created_by'])->get());
+        return new WorkOrderResource(WorkOrder::with(['work_order_status', 'uploaded_by', 'hospital', 'doctor', 'patient', 'modality', 'procedure', 'radiologist', 'created_by'])->get());
 
     }
 
     public function store(StoreWorkOrderRequest $request)
     {
         $workOrder = WorkOrder::create($request->all());
-        $workOrder->procedures()->sync($request->input('procedures', []));
 
         if ($request->input('image', false)) {
             $workOrder->addMedia(storage_path('tmp/uploads/' . $request->input('image')))->toMediaCollection('image');
@@ -43,14 +42,13 @@ class WorkOrderApiController extends Controller
     {
         abort_if(Gate::denies('work_order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new WorkOrderResource($workOrder->load(['work_order_status', 'uploaded_by', 'hospital', 'doctor', 'patient', 'modality', 'procedures', 'radiologist', 'created_by']));
+        return new WorkOrderResource($workOrder->load(['work_order_status', 'uploaded_by', 'hospital', 'doctor', 'patient', 'modality', 'procedure', 'radiologist', 'created_by']));
 
     }
 
     public function update(UpdateWorkOrderRequest $request, WorkOrder $workOrder)
     {
         $workOrder->update($request->all());
-        $workOrder->procedures()->sync($request->input('procedures', []));
 
         if ($request->input('image', false)) {
             if (!$workOrder->image || $request->input('image') !== $workOrder->image->file_name) {

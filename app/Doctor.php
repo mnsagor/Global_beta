@@ -34,32 +34,32 @@ class Doctor extends Model implements HasMedia
     ];
 
     public static $searchable = [
-        'nid',
         'name',
-        'email',
-        'department',
         'designation',
         'specilities',
+        'department',
+        'nid',
         'phone_number',
+        'email',
     ];
 
     protected $fillable = [
-        'nid',
         'name',
-        'email',
+        'designation',
+        'specilities',
+        'department',
+        'nid',
         'gender',
+        'phone_number',
+        'email',
         'status',
         'address',
+        'special_achievement',
         'history',
-        'department',
         'created_at',
         'updated_at',
         'deleted_at',
-        'designation',
-        'specilities',
-        'phone_number',
         'created_by_id',
-        'special_achievement',
     ];
 
     protected function serializeDate(DateTimeInterface $date)

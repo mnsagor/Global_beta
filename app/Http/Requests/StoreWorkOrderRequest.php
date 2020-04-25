@@ -41,11 +41,9 @@ class StoreWorkOrderRequest extends FormRequest
             'patient_id'           => [
                 'required',
                 'integer'],
-            'procedures.*'         => [
-                'integer'],
-            'procedures'           => [
+            'procedure_id'         => [
                 'required',
-                'array'],
+                'integer'],
             'image.*'              => [
                 'required'],
         ];

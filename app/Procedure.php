@@ -33,12 +33,12 @@ class Procedure extends Model
     protected $fillable = [
         'title',
         'status',
+        'modality_id',
         'created_at',
+        'procedure_type_id',
         'updated_at',
         'deleted_at',
-        'modality_id',
         'created_by_id',
-        'procedure_type_id',
     ];
 
     protected function serializeDate(DateTimeInterface $date)
@@ -55,7 +55,7 @@ class Procedure extends Model
 
     public function procedureWorkOrders()
     {
-        return $this->belongsToMany(WorkOrder::class);
+        return $this->hasMany(WorkOrder::class, 'procedure_id', 'id');
 
     }
 

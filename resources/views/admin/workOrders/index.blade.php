@@ -131,7 +131,7 @@
 { data: 'doctor_name', name: 'doctor.name' },
 { data: 'patient_name', name: 'patient.name' },
 { data: 'modality_title', name: 'modality.title' },
-{ data: 'procedure', name: 'procedures.title' },
+{ data: 'procedure_title', name: 'procedure.title' },
 { data: 'radiologist_name', name: 'radiologist.name' },
 { data: 'image', name: 'image', sortable: false, searchable: false },
 { data: 'actions', name: '{{ trans('global.actions') }}' }

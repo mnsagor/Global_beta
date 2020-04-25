@@ -225,35 +225,6 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.hospital.fields.accountant_phone_number_helper') }}</span>
                         </div>
-{{--                        <div class="form-group {{ $errors->has('user') ? 'has-error' : '' }}">--}}
-{{--                            <label class="required" for="user_id">{{ trans('cruds.hospital.fields.user') }}</label>--}}
-{{--                            <select class="form-control select2" name="user_id" id="user_id" required>--}}
-{{--                                @foreach($users as $id => $user)--}}
-{{--                                    <option value="{{ $id }}" {{ ($hospital->user ? $hospital->user->id : old('user_id')) == $id ? 'selected' : '' }}>{{ $user }}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                            @if($errors->has('user'))--}}
-{{--                                <span class="help-block" role="alert">{{ $errors->first('user') }}</span>--}}
-{{--                            @endif--}}
-{{--                            <span class="help-block">{{ trans('cruds.hospital.fields.user_helper') }}</span>--}}
-{{--                        </div>--}}
-                        <div class="form-group {{ $errors->has('modalities') ? 'has-error' : '' }}">
-                            <label for="modalities">{{ trans('cruds.hospital.fields.modality') }}</label>
-                            <div style="padding-bottom: 4px">
-                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                            </div>
-                            <select class="form-control select2" name="modalities[]" id="modalities" multiple>
-                                @foreach($modalities as $id => $modality)
-                                    <option value="{{ $id }}" {{ (in_array($id, old('modalities', [])) || $hospital->modalities->contains($id)) ? 'selected' : '' }}>{{ $modality }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('modalities'))
-                                <span class="help-block" role="alert">{{ $errors->first('modalities') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.hospital.fields.modality_helper') }}</span>
-                        </div>
-
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
