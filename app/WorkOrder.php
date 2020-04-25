@@ -27,26 +27,27 @@ class WorkOrder extends Model implements HasMedia
     ];
 
     protected $dates = [
-        'data',
         'created_at',
+        'data',
         'updated_at',
         'deleted_at',
     ];
 
     protected $fillable = [
-        'data',
-        'doctor_id',
+        'registration_number',
         'created_at',
+        'work_order_status_id',
+        'uploaded_by_id',
+        'data',
+        'hospital_id',
+        'doctor_id',
         'patient_id',
+        'modality_id',
+        'procedure_id',
+        'radiologist_id',
+        'created_by_id',
         'updated_at',
         'deleted_at',
-        'hospital_id',
-        'modality_id',
-        'created_by_id',
-        'uploaded_by_id',
-        'radiologist_id',
-        'registration_number',
-        'work_order_status_id',
     ];
 
     protected function serializeDate(DateTimeInterface $date)
@@ -116,9 +117,9 @@ class WorkOrder extends Model implements HasMedia
 
     }
 
-    public function procedures()
+    public function procedure()
     {
-        return $this->belongsToMany(Procedure::class);
+        return $this->belongsTo(Procedure::class, 'procedure_id');
 
     }
 

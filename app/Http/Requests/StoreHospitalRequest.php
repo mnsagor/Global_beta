@@ -23,19 +23,8 @@ class StoreHospitalRequest extends FormRequest
             'title'  => [
                 'required',
                 'unique:hospitals'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'roles.*'  => [
-                'integer'],
-            'roles'    => [
-                'required',
-                'array'],
             'status' => [
                 'required'],
-            'modalities.*' => [
-                'integer'],
-            'modalities'   => [
-                'array'],
         ];
 
     }

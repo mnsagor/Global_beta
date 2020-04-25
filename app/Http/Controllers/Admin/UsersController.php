@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Radiologist;
 use App\Role;
 use App\User;
 use Gate;
@@ -57,25 +56,6 @@ class UsersController extends Controller
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
-
-        $radiologist = User::findOrFail($user->id)->radiologist;
-//        dd($radiologist);
-        if($radiologist != null){
-            $radiologist->name = $request->name;
-            $radiologist->status = $request->approved;
-//            dd($radiologist);
-            $radiologist->update();
-        }
-
-        $hospital = User::findOrFail($user->id)->hospital;
-//        dd($hospital);
-        if($hospital != null){
-            $hospital->title = $request->name;
-            $hospital->status = $request->approved;
-            $hospital->update();
-        }
-
-
 
         return redirect()->route('admin.users.index');
 

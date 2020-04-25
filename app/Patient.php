@@ -35,29 +35,29 @@ class Patient extends Model implements HasMedia
     ];
 
     public static $searchable = [
-        'nid',
         'name',
         'email',
-        'files',
         'phone_number',
+        'nid',
+        'files',
     ];
 
     protected $fillable = [
-        'dof',
-        'nid',
         'name',
-        'email',
         'gender',
+        'dof',
+        'email',
+        'phone_number',
+        'nid',
+        'clinical_history',
+        'surgical_history',
+        'lab_results',
+        'deo_comments',
+        'clinical_diagnosis',
         'created_at',
         'updated_at',
         'deleted_at',
-        'lab_results',
-        'phone_number',
-        'deo_comments',
         'created_by_id',
-        'clinical_history',
-        'surgical_history',
-        'clinical_diagnosis',
     ];
 
     protected function serializeDate(DateTimeInterface $date)

@@ -32,7 +32,7 @@ class WorkOrderController extends Controller
         abort_if(Gate::denies('work_order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = WorkOrder::with(['work_order_status', 'uploaded_by', 'hospital', 'doctor', 'patient', 'modality', 'procedures', 'radiologist', 'created_by'])->select(sprintf('%s.*', (new WorkOrder)->table));
+            $query = WorkOrder::with(['work_order_status', 'uploaded_by', 'hospital', 'doctor', 'patient', 'modality', 'procedure', 'radiologist', 'created_by'])->select(sprintf('%s.*', (new WorkOrder)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -83,15 +83,10 @@ class WorkOrderController extends Controller
                 return $row->modality ? $row->modality->title : '';
             });
 
-            $table->editColumn('procedure', function ($row) {
-                $labels = [];
-
-                foreach ($row->procedures as $procedure) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $procedure->title);
-                }
-
-                return implode(' ', $labels);
+            $table->addColumn('procedure_title', function ($row) {
+                return $row->procedure ? $row->procedure->title : '';
             });
+
             $table->addColumn('radiologist_name', function ($row) {
                 return $row->radiologist ? $row->radiologist->name : '';
             });
@@ -134,7 +129,7 @@ class WorkOrderController extends Controller
 
         $modalities = Modality::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $procedures = Procedure::all()->pluck('title', 'id');
+        $procedures = Procedure::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $radiologists = Radiologist::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -144,7 +139,6 @@ class WorkOrderController extends Controller
     public function store(StoreWorkOrderRequest $request)
     {
         $workOrder = WorkOrder::create($request->all());
-        $workOrder->procedures()->sync($request->input('procedures', []));
 
         foreach ($request->input('image', []) as $file) {
             $workOrder->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('image');
@@ -174,11 +168,11 @@ class WorkOrderController extends Controller
 
         $modalities = Modality::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $procedures = Procedure::all()->pluck('title', 'id');
+        $procedures = Procedure::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $radiologists = Radiologist::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $workOrder->load('work_order_status', 'uploaded_by', 'hospital', 'doctor', 'patient', 'modality', 'procedures', 'radiologist', 'created_by');
+        $workOrder->load('work_order_status', 'uploaded_by', 'hospital', 'doctor', 'patient', 'modality', 'procedure', 'radiologist', 'created_by');
 
         return view('admin.workOrders.edit', compact('work_order_statuses', 'uploaded_bies', 'hospitals', 'doctors', 'patients', 'modalities', 'procedures', 'radiologists', 'workOrder'));
     }
@@ -186,7 +180,6 @@ class WorkOrderController extends Controller
     public function update(UpdateWorkOrderRequest $request, WorkOrder $workOrder)
     {
         $workOrder->update($request->all());
-        $workOrder->procedures()->sync($request->input('procedures', []));
 
         if (count($workOrder->image) > 0) {
             foreach ($workOrder->image as $media) {
@@ -215,7 +208,7 @@ class WorkOrderController extends Controller
     {
         abort_if(Gate::denies('work_order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $workOrder->load('work_order_status', 'uploaded_by', 'hospital', 'doctor', 'patient', 'modality', 'procedures', 'radiologist', 'created_by');
+        $workOrder->load('work_order_status', 'uploaded_by', 'hospital', 'doctor', 'patient', 'modality', 'procedure', 'radiologist', 'created_by');
 
         return view('admin.workOrders.show', compact('workOrder'));
     }
