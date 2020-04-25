@@ -179,9 +179,14 @@ class RadiologistController extends Controller
     public function update(UpdateRadiologistRequest $request, Radiologist $radiologist)
     {
 //        $user = User::where('id',$radiologist->user_id)->get();
-        $user = User::find($radiologist->user_id);
-        $user->approved = $request->status;
-        $user->update();
+        $user = User::findOrFail($radiologist->user_id);
+        if($user != null)
+        {
+            $user->name = $request->name;
+            $user->approved = $request->status;
+            $user->update();
+        }
+
 
         $radiologist->update($request->all());
         $radiologist->hospitals()->sync($request->input('hospitals', []));

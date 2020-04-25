@@ -9,11 +9,15 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyHospitalRequest;
 use App\Http\Requests\StoreHospitalRequest;
 use App\Http\Requests\UpdateHospitalRequest;
+use App\Radiologist;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Spatie\MediaLibrary\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
+use App\User;
+use App\Modality;
 
 class HospitalController extends Controller
 {
@@ -112,12 +116,31 @@ class HospitalController extends Controller
     {
         abort_if(Gate::denies('hospital_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.hospitals.create');
+        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $modalities = Modality::all()->pluck('title', 'id');
+//        $radiologist = Radiologist::all()->where('status',1)->pluck('title','id');
+
+        return view('admin.hospitals.create', compact('users', 'modalities'));
     }
 
     public function store(StoreHospitalRequest $request)
     {
+        //create user
+        $user = User::create([
+            'name' => $request['title'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'approved' => $request['status'],
+        ]);
+
+        $user->roles()->sync($request->input('roles', []));
+
         $hospital = Hospital::create($request->all());
+        $hospital->modalities()->sync($request->input('modalities', []));
+//        $radiologist->radiologists()->sync($request->input('radiologists', []));
+
+        $hospital->user_id = $user->id;
+        $hospital->update();
 
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $hospital->id]);
@@ -130,15 +153,34 @@ class HospitalController extends Controller
     public function edit(Hospital $hospital)
     {
         abort_if(Gate::denies('hospital_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $hospital->load('created_by');
+        $modalities = Modality::all()->pluck('title', 'id');
 
-        return view('admin.hospitals.edit', compact('hospital'));
+        $hospital->load('user', 'modalities', 'created_by');
+
+//        $hospital->load('created_by');
+
+        return view('admin.hospitals.edit', compact('users', 'modalities','hospital'));
     }
 
     public function update(UpdateHospitalRequest $request, Hospital $hospital)
     {
+        $user = User::findOrFail($hospital->user_id);
+        if($user != null)
+        {
+            $user->name = $request->title;
+            $user->approved = $request->status;
+            $user->update();
+        }
+
+//        $user = User::find($hospital->user_id);
+//        $user->approved = $request->status;
+//        $user->update();
+
         $hospital->update($request->all());
+
+        $hospital->modalities()->sync($request->input('modalities', []));
 
         return redirect()->route('admin.hospitals.index');
 
@@ -148,7 +190,7 @@ class HospitalController extends Controller
     {
         abort_if(Gate::denies('hospital_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $hospital->load('created_by', 'hospitalWorkOrders', 'hospitalRadiologists');
+        $hospital->load('user', 'modalities', 'created_by', 'hospitalWorkOrders', 'hospitalRadiologists');
 
         return view('admin.hospitals.show', compact('hospital'));
     }

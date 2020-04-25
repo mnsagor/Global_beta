@@ -59,9 +59,20 @@ class UsersController extends Controller
         $user->roles()->sync($request->input('roles', []));
 
         $radiologist = User::findOrFail($user->id)->radiologist;
+//        dd($radiologist);
         if($radiologist != null){
+            $radiologist->name = $request->name;
             $radiologist->status = $request->approved;
+//            dd($radiologist);
             $radiologist->update();
+        }
+
+        $hospital = User::findOrFail($user->id)->hospital;
+//        dd($hospital);
+        if($hospital != null){
+            $hospital->title = $request->name;
+            $hospital->status = $request->approved;
+            $hospital->update();
         }
 
 

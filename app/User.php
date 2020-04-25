@@ -126,4 +126,9 @@ class User extends Authenticatable
         return $this->hasOne(Radiologist::class);
     }
 
+    public function hospital()
+    {
+        return $this->hasOne(Hospital::class);
+    }
+
 }

@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             ModalitySeeder::class,
             ProcedureSeeder::class,
 
+            HospitalSeeder::class,
+            RadiologistSeeder::class,
+
         ]);
 
     }

@@ -19,6 +19,27 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.hospital.fields.title_helper') }}</span>
                         </div>
+                        <input id="roles" name="roles[]" type="hidden" value="4">
+
+                        <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
+                            <label class="required" for="email">{{ trans('cruds.user.fields.email') }}</label>
+                            <input class="form-control" type="email" name="email" id="email" value="{{ old('email') }}" required>
+                            @if($errors->has('email'))
+                                <span class="help-block" role="alert">{{ $errors->first('email') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.user.fields.email_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                            <label class="required" for="password">{{ trans('cruds.user.fields.password') }}</label>
+                            <input class="form-control" type="password" name="password" id="password" required>
+                            @if($errors->has('password'))
+                                <span class="help-block" role="alert">{{ $errors->first('password') }}</span>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="password_confirmation">Confirm {{ trans('cruds.user.fields.password') }}</label>
+                            <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" required>
+                        </div>
                         <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
                             <label class="required">{{ trans('cruds.hospital.fields.status') }}</label>
                             <select class="form-control" name="status" id="status" required>
@@ -160,6 +181,89 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.hospital.fields.pacs_port_helper') }}</span>
                         </div>
+
+                        <div class="form-group {{ $errors->has('proprietor_name') ? 'has-error' : '' }}">
+                            <label for="proprietor_name">{{ trans('cruds.hospital.fields.proprietor_name') }}</label>
+                            <input class="form-control" type="text" name="proprietor_name" id="proprietor_name" value="{{ old('proprietor_name', '') }}">
+                            @if($errors->has('proprietor_name'))
+                                <span class="help-block" role="alert">{{ $errors->first('proprietor_name') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.hospital.fields.proprietor_name_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('proprietor_phone_number') ? 'has-error' : '' }}">
+                            <label for="proprietor_phone_number">{{ trans('cruds.hospital.fields.proprietor_phone_number') }}</label>
+                            <input class="form-control" type="text" name="proprietor_phone_number" id="proprietor_phone_number" value="{{ old('proprietor_phone_number', '') }}">
+                            @if($errors->has('proprietor_phone_number'))
+                                <span class="help-block" role="alert">{{ $errors->first('proprietor_phone_number') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.hospital.fields.proprietor_phone_number_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('chairman_name') ? 'has-error' : '' }}">
+                            <label for="chairman_name">{{ trans('cruds.hospital.fields.chairman_name') }}</label>
+                            <input class="form-control" type="text" name="chairman_name" id="chairman_name" value="{{ old('chairman_name', '') }}">
+                            @if($errors->has('chairman_name'))
+                                <span class="help-block" role="alert">{{ $errors->first('chairman_name') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.hospital.fields.chairman_name_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('chairman_phone_number') ? 'has-error' : '' }}">
+                            <label for="chairman_phone_number">{{ trans('cruds.hospital.fields.chairman_phone_number') }}</label>
+                            <input class="form-control" type="text" name="chairman_phone_number" id="chairman_phone_number" value="{{ old('chairman_phone_number', '') }}">
+                            @if($errors->has('chairman_phone_number'))
+                                <span class="help-block" role="alert">{{ $errors->first('chairman_phone_number') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.hospital.fields.chairman_phone_number_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('director_name') ? 'has-error' : '' }}">
+                            <label for="director_name">{{ trans('cruds.hospital.fields.director_name') }}</label>
+                            <input class="form-control" type="text" name="director_name" id="director_name" value="{{ old('director_name', '') }}">
+                            @if($errors->has('director_name'))
+                                <span class="help-block" role="alert">{{ $errors->first('director_name') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.hospital.fields.director_name_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('director_phone_number') ? 'has-error' : '' }}">
+                            <label for="director_phone_number">{{ trans('cruds.hospital.fields.director_phone_number') }}</label>
+                            <input class="form-control" type="text" name="director_phone_number" id="director_phone_number" value="{{ old('director_phone_number', '') }}">
+                            @if($errors->has('director_phone_number'))
+                                <span class="help-block" role="alert">{{ $errors->first('director_phone_number') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.hospital.fields.director_phone_number_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('accountant_name') ? 'has-error' : '' }}">
+                            <label for="accountant_name">{{ trans('cruds.hospital.fields.accountant_name') }}</label>
+                            <input class="form-control" type="text" name="accountant_name" id="accountant_name" value="{{ old('accountant_name', '') }}">
+                            @if($errors->has('accountant_name'))
+                                <span class="help-block" role="alert">{{ $errors->first('accountant_name') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.hospital.fields.accountant_name_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('accountant_phone_number') ? 'has-error' : '' }}">
+                            <label for="accountant_phone_number">{{ trans('cruds.hospital.fields.accountant_phone_number') }}</label>
+                            <input class="form-control" type="text" name="accountant_phone_number" id="accountant_phone_number" value="{{ old('accountant_phone_number', '') }}">
+                            @if($errors->has('accountant_phone_number'))
+                                <span class="help-block" role="alert">{{ $errors->first('accountant_phone_number') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.hospital.fields.accountant_phone_number_helper') }}</span>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('modalities') ? 'has-error' : '' }}">
+                            <label for="modalities">{{ trans('cruds.hospital.fields.modality') }}</label>
+                            <div style="padding-bottom: 4px">
+                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                            </div>
+                            <select class="form-control select2" name="modalities[]" id="modalities" multiple>
+                                @foreach($modalities as $id => $modality)
+                                    <option value="{{ $id }}" {{ in_array($id, old('modalities', [])) ? 'selected' : '' }}>{{ $modality }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('modalities'))
+                                <span class="help-block" role="alert">{{ $errors->first('modalities') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.hospital.fields.modality_helper') }}</span>
+                        </div>
+
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
