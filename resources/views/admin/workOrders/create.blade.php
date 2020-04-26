@@ -11,6 +11,10 @@
                 <div class="panel-body">
                     <form method="POST" action="{{ route("admin.work-orders.store") }}" enctype="multipart/form-data">
                         @csrf
+
+                        <input type="hidden" name="uploaded_by_id" value="{{\Illuminate\Support\Facades\Auth::user()->id}}">
+                        <input type="hidden" name="work_order_status_id" value="1">
+
                         <div class="form-group {{ $errors->has('registration_number') ? 'has-error' : '' }}">
                             <label class="required" for="registration_number">{{ trans('cruds.workOrder.fields.registration_number') }}</label>
                             <input class="form-control" type="text" name="registration_number" id="registration_number" value="{{ old('registration_number', '') }}" required>
@@ -19,37 +23,40 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.workOrder.fields.registration_number_helper') }}</span>
                         </div>
-                        <div class="form-group {{ $errors->has('work_order_status') ? 'has-error' : '' }}">
-                            <label class="required" for="work_order_status_id">{{ trans('cruds.workOrder.fields.work_order_status') }}</label>
-                            <select class="form-control select2" name="work_order_status_id" id="work_order_status_id" required>
-                                @foreach($work_order_statuses as $id => $work_order_status)
-                                    <option value="{{ $id }}" {{ old('work_order_status_id') == $id ? 'selected' : '' }}>{{ $work_order_status }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('work_order_status'))
-                                <span class="help-block" role="alert">{{ $errors->first('work_order_status') }}</span>
+{{--                        <div class="form-group {{ $errors->has('work_order_status') ? 'has-error' : '' }}">--}}
+{{--                            <label class="required" for="work_order_status_id">{{ trans('cruds.workOrder.fields.work_order_status') }}</label>--}}
+{{--                            <select class="form-control select2" name="work_order_status_id" id="work_order_status_id" required>--}}
+{{--                                @foreach($work_order_statuses as $id => $work_order_status)--}}
+{{--                                    <option value="{{ $id }}" {{ old('work_order_status_id') == $id ? 'selected' : '' }}>{{ $work_order_status }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                            @if($errors->has('work_order_status'))--}}
+{{--                                <span class="help-block" role="alert">{{ $errors->first('work_order_status') }}</span>--}}
+{{--                            @endif--}}
+{{--                            <span class="help-block">{{ trans('cruds.workOrder.fields.work_order_status_helper') }}</span>--}}
+{{--                        </div>--}}
+{{--                        <div class="form-group {{ $errors->has('uploaded_by') ? 'has-error' : '' }}">--}}
+{{--                            <label class="required" for="uploaded_by_id">{{ trans('cruds.workOrder.fields.uploaded_by') }}</label>--}}
+{{--                            <select class="form-control select2" name="uploaded_by_id" id="uploaded_by_id" required>--}}
+{{--                                @foreach($uploaded_bies as $id => $uploaded_by)--}}
+{{--                                    <option value="{{ $id }}" {{ old('uploaded_by_id') == $id ? 'selected' : '' }}>{{ $uploaded_by }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                            @if($errors->has('uploaded_by'))--}}
+{{--                                <span class="help-block" role="alert">{{ $errors->first('uploaded_by') }}</span>--}}
+{{--                            @endif--}}
+{{--                            <span class="help-block">{{ trans('cruds.workOrder.fields.uploaded_by_helper') }}</span>--}}
+{{--                        </div>--}}
+
+
+                        <div class="form-group {{ $errors->has('date') ? 'has-error' : '' }}">
+                            <label class="required" for="date">{{ trans('cruds.workOrder.fields.date') }}</label>
+{{--                            <input class="form-control datetime" type="text" name="date" id="date" value="{{ old('date') }}" required>--}}
+                            <input class="form-control datetime" type="text" name="date" id="date" value="{{ \Illuminate\Support\Carbon::now() }}" required>
+                            @if($errors->has('date'))
+                                <span class="help-block" role="alert">{{ $errors->first('date') }}</span>
                             @endif
-                            <span class="help-block">{{ trans('cruds.workOrder.fields.work_order_status_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('uploaded_by') ? 'has-error' : '' }}">
-                            <label class="required" for="uploaded_by_id">{{ trans('cruds.workOrder.fields.uploaded_by') }}</label>
-                            <select class="form-control select2" name="uploaded_by_id" id="uploaded_by_id" required>
-                                @foreach($uploaded_bies as $id => $uploaded_by)
-                                    <option value="{{ $id }}" {{ old('uploaded_by_id') == $id ? 'selected' : '' }}>{{ $uploaded_by }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('uploaded_by'))
-                                <span class="help-block" role="alert">{{ $errors->first('uploaded_by') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.workOrder.fields.uploaded_by_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('data') ? 'has-error' : '' }}">
-                            <label class="required" for="data">{{ trans('cruds.workOrder.fields.data') }}</label>
-                            <input class="form-control datetime" type="text" name="data" id="data" value="{{ old('data') }}" required>
-                            @if($errors->has('data'))
-                                <span class="help-block" role="alert">{{ $errors->first('data') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.workOrder.fields.data_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.workOrder.fields.date_helper') }}</span>
                         </div>
                         <div class="form-group {{ $errors->has('hospital') ? 'has-error' : '' }}">
                             <label class="required" for="hospital_id">{{ trans('cruds.workOrder.fields.hospital') }}</label>
@@ -88,8 +95,8 @@
                             <span class="help-block">{{ trans('cruds.workOrder.fields.patient_helper') }}</span>
                         </div>
                         <div class="form-group {{ $errors->has('modality') ? 'has-error' : '' }}">
-                            <label for="modality_id">{{ trans('cruds.workOrder.fields.modality') }}</label>
-                            <select class="form-control select2" name="modality_id" id="modality_id">
+                            <label class="required" for="modality_id">{{ trans('cruds.workOrder.fields.modality') }}</label>
+                            <select class="form-control select2 dynamic" name="modality_id" id="modality_id"  data-dependent="procedure_id" required>
                                 @foreach($modalities as $id => $modality)
                                     <option value="{{ $id }}" {{ old('modality_id') == $id ? 'selected' : '' }}>{{ $modality }}</option>
                                 @endforeach
@@ -99,19 +106,32 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.workOrder.fields.modality_helper') }}</span>
                         </div>
-                        <div class="form-group {{ $errors->has('procedures') ? 'has-error' : '' }}">
-                            <label class="required" for="procedures">{{ trans('cruds.workOrder.fields.procedure') }}</label>
-                            <div style="padding-bottom: 4px">
-                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                            </div>
-                            <select class="form-control select2" name="procedures[]" id="procedures" multiple required>
-                                @foreach($procedures as $id => $procedure)
-                                    <option value="{{ $id }}" {{ in_array($id, old('procedures', [])) ? 'selected' : '' }}>{{ $procedure }}</option>
-                                @endforeach
+{{--                        <div class="form-group {{ $errors->has('procedures') ? 'has-error' : '' }}">--}}
+{{--                            <label class="required" for="procedures">{{ trans('cruds.workOrder.fields.procedure') }}</label>--}}
+{{--                            <div style="padding-bottom: 4px">--}}
+{{--                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>--}}
+{{--                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>--}}
+{{--                            </div>--}}
+{{--                            <select class="form-control select2" name="procedures[]" id="procedures" multiple required>--}}
+{{--                                @foreach($procedures as $id => $procedure)--}}
+{{--                                    <option value="{{ $id }}" {{ in_array($id, old('procedures', [])) ? 'selected' : '' }}>{{ $procedure }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                            @if($errors->has('procedures'))--}}
+{{--                                <span class="help-block" role="alert">{{ $errors->first('procedures') }}</span>--}}
+{{--                            @endif--}}
+{{--                            <span class="help-block">{{ trans('cruds.workOrder.fields.procedure_helper') }}</span>--}}
+{{--                        </div>--}}
+                        <div class="form-group {{ $errors->has('procedure') ? 'has-error' : '' }}">
+                            <label class="required" for="procedure_id">{{ trans('cruds.workOrder.fields.procedure') }}</label>
+                            <select class="form-control select2" name="procedure_id" id="procedure_id" required>
+{{--                                @foreach($procedures as $id => $procedure)--}}
+{{--                                    <option value="{{ $id }}" {{ old('procedure_id') == $id ? 'selected' : '' }}>{{ $procedure }}</option>--}}
+{{--                                @endforeach--}}
+                                    <option value="">Select Procedure</option>
                             </select>
-                            @if($errors->has('procedures'))
-                                <span class="help-block" role="alert">{{ $errors->first('procedures') }}</span>
+                            @if($errors->has('procedure'))
+                                <span class="help-block" role="alert">{{ $errors->first('procedure') }}</span>
                             @endif
                             <span class="help-block">{{ trans('cruds.workOrder.fields.procedure_helper') }}</span>
                         </div>
@@ -154,6 +174,30 @@
 
 @section('scripts')
 <script>
+
+    $('.dynamic').change(function () {
+        if($(this).val() != '')
+        {
+            var select = $(this).attr("id");
+            var value = $(this).val();
+            var dependent = $(this).data('dependent');
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{ route('admin.macros.fetchProcedures') }}",
+                method:"POST",
+                data:{select:select, value:value, _token:_token, dependent:dependent},
+                success:function(result)
+                {
+                    $('#'+dependent).html(result);
+                }
+            })
+        }
+    });
+    $('#modality_id').change(function(){
+        $('#procedure_id').val('');
+    });
+
+
     var uploadedImageMap = {}
 Dropzone.options.imageDropzone = {
     url: '{{ route('admin.work-orders.storeMedia') }}',

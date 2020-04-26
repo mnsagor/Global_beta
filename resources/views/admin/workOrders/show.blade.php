@@ -94,9 +94,10 @@
                                         {{ trans('cruds.workOrder.fields.procedure') }}
                                     </th>
                                     <td>
-                                        @foreach($workOrder->procedures as $key => $procedure)
-                                            <span class="label label-info">{{ $procedure->title }}</span>
-                                        @endforeach
+{{--                                        @foreach($workOrder->procedures as $key => $procedure)--}}
+{{--                                            <span class="label label-info">{{ $procedure->title }}</span>--}}
+{{--                                        @endforeach--}}
+                                        {{ $workOrder->procedure->title ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>

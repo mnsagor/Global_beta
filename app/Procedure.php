@@ -55,7 +55,8 @@ class Procedure extends Model
 
     public function procedureWorkOrders()
     {
-        return $this->belongsToMany(WorkOrder::class);
+//        return $this->belongsToMany(WorkOrder::class);
+        return $this->hasMany(WorkOrder::class, 'procedure_id', 'id');
 
     }
 

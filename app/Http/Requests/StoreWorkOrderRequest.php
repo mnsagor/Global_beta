@@ -29,7 +29,7 @@ class StoreWorkOrderRequest extends FormRequest
             'uploaded_by_id'       => [
                 'required',
                 'integer'],
-            'data'                 => [
+            'date'                 => [
                 'required',
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format')],
             'hospital_id'          => [
@@ -41,11 +41,14 @@ class StoreWorkOrderRequest extends FormRequest
             'patient_id'           => [
                 'required',
                 'integer'],
-            'procedures.*'         => [
-                'integer'],
-            'procedures'           => [
+//            'procedures.*'         => [
+//                'integer'],
+//            'procedures'           => [
+//                'required',
+//                'array'],
+            'procedure_id'         => [
                 'required',
-                'array'],
+                'integer'],
             'image.*'              => [
                 'required'],
         ];

@@ -99,9 +99,10 @@
                                             {{ $workOrder->modality->title ?? '' }}
                                         </td>
                                         <td>
-                                            @foreach($workOrder->procedures as $key => $item)
-                                                <span class="label label-info label-many">{{ $item->title }}</span>
-                                            @endforeach
+{{--                                            @foreach($workOrder->procedures as $key => $item)--}}
+{{--                                                <span class="label label-info label-many">{{ $item->title }}</span>--}}
+{{--                                            @endforeach--}}
+                                            {{ $workOrder->procedure->title ?? '' }}
                                         </td>
                                         <td>
                                             {{ $workOrder->radiologist->name ?? '' }}

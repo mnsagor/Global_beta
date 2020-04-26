@@ -40,7 +40,7 @@
                                     {{ trans('cruds.workOrder.fields.uploaded_by') }}
                                 </th>
                                 <th>
-                                    {{ trans('cruds.workOrder.fields.data') }}
+                                    {{ trans('cruds.workOrder.fields.date') }}
                                 </th>
                                 <th>
                                     {{ trans('cruds.workOrder.fields.hospital') }}
@@ -126,12 +126,13 @@
 { data: 'registration_number', name: 'registration_number' },
 { data: 'work_order_status_title', name: 'work_order_status.title' },
 { data: 'uploaded_by_name', name: 'uploaded_by.name' },
-{ data: 'data', name: 'data' },
+{ data: 'date', name: 'date' },
 { data: 'hospital_title', name: 'hospital.title' },
 { data: 'doctor_name', name: 'doctor.name' },
 { data: 'patient_name', name: 'patient.name' },
 { data: 'modality_title', name: 'modality.title' },
-{ data: 'procedure', name: 'procedures.title' },
+// { data: 'procedure', name: 'procedures.title' },
+{ data: 'procedure_title', name: 'procedure.title' },
 { data: 'radiologist_name', name: 'radiologist.name' },
 { data: 'image', name: 'image', sortable: false, searchable: false },
 { data: 'actions', name: '{{ trans('global.actions') }}' }

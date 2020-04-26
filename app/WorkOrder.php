@@ -27,14 +27,14 @@ class WorkOrder extends Model implements HasMedia
     ];
 
     protected $dates = [
-        'data',
+        'date',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     protected $fillable = [
-        'data',
+        'date',
         'doctor_id',
         'created_at',
         'patient_id',
@@ -42,6 +42,7 @@ class WorkOrder extends Model implements HasMedia
         'deleted_at',
         'hospital_id',
         'modality_id',
+        'procedure_id',
         'created_by_id',
         'uploaded_by_id',
         'radiologist_id',
@@ -80,15 +81,15 @@ class WorkOrder extends Model implements HasMedia
 
     }
 
-    public function getDataAttribute($value)
+    public function getDateAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
 
     }
 
-    public function setDataAttribute($value)
+    public function setDateAttribute($value)
     {
-        $this->attributes['data'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+        $this->attributes['date'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
 
     }
 
@@ -116,9 +117,15 @@ class WorkOrder extends Model implements HasMedia
 
     }
 
-    public function procedures()
+//    public function procedures()
+//    {
+//        return $this->belongsToMany(Procedure::class);
+//
+//    }
+    public function procedure()
     {
-        return $this->belongsToMany(Procedure::class);
+//        return $this->belongsToMany(Procedure::class);
+        return $this->belongsTo(Procedure::class, 'procedure_id');
 
     }
 

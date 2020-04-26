@@ -11,7 +11,7 @@ class CreateWorkOrdersTable extends Migration
         Schema::create('work_orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('registration_number')->unique();
-            $table->datetime('data');
+            $table->datetime('date');
             $table->timestamps();
             $table->softDeletes();
         });
